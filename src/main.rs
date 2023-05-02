@@ -75,17 +75,21 @@ fn main() {
         .build();
     app.connect_activate(on_activate);
     // Run the application
-    app.run();
-    // run_command("ls |cat")
+    // app.run();
+    run_command("ls -a | cat")
 }
 fn run_command(command_to_run: &str) {
-    println!(" command:\"{}\"", command_to_run);
 
-    let output = Command::new(command_to_run)
-        // .arg("-a")
-        // .arg("src")
-        .output()
-        .expect("Failed to execute command");
+
+    let split = command_to_run.split(' ');
+    let mut args: Vec<&str> = split.collect();
+    let command = args[0];
+    args.remove(0);
+
+    let output = Command::new(command)
+    .args(args)
+    .output()
+    .expect("Failed to execute command");
 
     println!("{}", String::from_utf8_lossy(&output.stdout));
 }
