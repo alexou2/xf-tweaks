@@ -1,14 +1,12 @@
 // a module dedicated to parsing json files
 // use serde;
-use serde_json::json;
+// use serde_json::json;
 // use serde_json::to_string;
-use serde_json::to_string_pretty;
+// use serde_json::to_string_pretty;
 use serde_json::Value;
-use std::fmt;
 use std::fs::read_to_string;
-use std::process::Output;
 
-use crate::json;
+// use crate::json;
 
 pub fn read_file(file_name: &str) -> Result<String, Box<dyn std::error::Error>> {
     let file_buffer = read_to_string(&file_name).unwrap();

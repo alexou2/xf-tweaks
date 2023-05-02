@@ -3,7 +3,8 @@
         {
             "name": "list files",
             "command":"ls -a",
-            "desctiption":"will list every file and folder, including hidden ones"
+            "desctiption":"will list every file and folder, including hidden ones",
+            "needs_sudo":false
         }
     ]
 }
