@@ -2,12 +2,16 @@ use glib::clone;
 // glib and other dependencies are re-exported by the gtk crate
 use gtk4::glib;
 use gtk4::prelude::*;
+use gio::prelude::*;
 // use gtk4::CssProvider;
 use gtk4::gdk::Display;
+use gtk4::{gdk, gio};
 use gtk4::{
-    Application, ApplicationWindow, Box as Box_, Button, CssProvider, DropDown, Entry, Orientation,
+    Application, ApplicationWindow, Box as Box, Button, CssProvider, DropDown, Entry, Orientation,
     STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
+use gtk4::*;
+
 
 // When the application is launched…
 fn on_activate(application: &gtk4::Application) {
@@ -41,19 +45,21 @@ fn on_activate(application: &gtk4::Application) {
         .orientation(gtk4::Orientation::Horizontal)
         .spacing(24)
         .build();
+
+        let into_entry: Entry = gtk4::Entry::new();
+    
+
+        let from_entry = gtk4::Entry::builder()
+            .placeholder_text("Type text to copy")
+            .build();
+        text_container.append(&from_entry);
+
     // … which closes the window when clicked
     // button.connect_clicked(clone!(@weak window => move |_| window.close()));
-    button.connect_clicked(clone!(@weak window => move |_| println!("button clicked")));
+    button.connect_clicked(clone!(@weak window => move |_| println!("{}", from_entry.text().as_str())));
     close_window.connect_clicked(clone!(@weak window => move |_| window.close()));
-    // text_container.type_();
+   
 
-    let from_entry = gtk4::Entry::builder()
-    .placeholder_text("Type text to copy")
-    .build();
-text_container.append(&from_entry);
-
-
-    // window.set_child(Some(&button));
     container.append(&button);
     container.append(&close_window);
     container.append(&text_container);

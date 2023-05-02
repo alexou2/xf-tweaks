@@ -435,13 +435,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "my-gtk-app"
-version = "0.1.0"
-dependencies = [
- "gtk4",
-]
-
-[[package]]
 name = "once_cell"
 version = "1.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -730,4 +723,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae8970b36c66498d8ff1d66685dc86b91b29db0c7739899012f63a63814b4b28"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "xf-tweaks"
+version = "0.1.0"
+dependencies = [
+ "gtk4",
 ]
