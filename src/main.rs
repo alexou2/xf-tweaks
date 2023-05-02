@@ -68,7 +68,8 @@ fn on_activate(application: &gtk4::Application) {
 fn main() {
     // Create a new application with the builder pattern
     let app = gtk4::Application::builder()
-        .application_id("com.github.gtk-rs.examples.basic")
+        // .application_id("com.github.gtk-rs.examples.basic")
+        .application_id("xf-tweaks")
         .build();
     app.connect_activate(on_activate);
     // Run the application
