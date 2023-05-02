@@ -3,15 +3,14 @@ use glib::clone;
 use gtk4::glib;
 use gtk4::prelude::*;
 use gio::prelude::*;
-// use gtk4::CssProvider;
 use gtk4::gdk::Display;
 use gtk4::{gdk, gio};
 use gtk4::{
     Application, ApplicationWindow, Box as Box, Button, CssProvider, DropDown, Entry, Orientation,
     STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
-use gtk4::*;
-
+use std::process::Command;
+mod json;
 
 // When the application is launched…
 fn on_activate(application: &gtk4::Application) {
@@ -38,16 +37,13 @@ fn on_activate(application: &gtk4::Application) {
     // … create a new window …
     let window = gtk4::ApplicationWindow::new(application);
     // … with a button in it …
-    let button = gtk4::Button::with_label("Hello World!");
-    let close_window = gtk4::Button::with_label("change me!");
+    let button = gtk4::Button::with_label("Submit");
+    let close_window = gtk4::Button::with_label("Exit");
     let text_container = gtk4::Box::builder()
         .halign(gtk4::Align::Center)
         .orientation(gtk4::Orientation::Horizontal)
         .spacing(24)
         .build();
-
-        let into_entry: Entry = gtk4::Entry::new();
-    
 
         let from_entry = gtk4::Entry::builder()
             .placeholder_text("Type text to copy")
@@ -56,7 +52,9 @@ fn on_activate(application: &gtk4::Application) {
 
     // … which closes the window when clicked
     // button.connect_clicked(clone!(@weak window => move |_| window.close()));
-    button.connect_clicked(clone!(@weak window => move |_| println!("{}", from_entry.text().as_str())));
+    // button.connect_clicked(clone!(@weak window => move |_| println!("{}", from_entry.text().as_str())));
+    button.connect_clicked(clone!(@weak window => move |_| run_command(from_entry.text().as_str())));
+
     close_window.connect_clicked(clone!(@weak window => move |_| window.close()));
    
 
@@ -74,5 +72,13 @@ fn main() {
         .build();
     app.connect_activate(on_activate);
     // Run the application
-    app.run();
+    // app.run();
+    run_command("ls")
+}
+fn run_command(command_to_run: &str){
+    let output = Command::new(command_to_run)
+        // .arg("-a")
+        .output()
+        .expect("Failed to execute command");
+    println!("{}", String::from_utf8_lossy(&output.stdout));
 }

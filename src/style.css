@@ -10,8 +10,14 @@ button {
     color: #f00;
 }
 
-button.button1:hover {
+button .button {
     transition: 500ms;
+    color: green;
+    background-color: yellow;
+}
+
+button:hover {
+    transition: .2s;
     color: red;
     background-color: yellow;
 }
@@ -19,6 +25,7 @@ button.button1:hover {
 combobox button.combo box {
     padding: 5px;
 }
+
 combobox box arrow {
     -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
     border-left: 5px solid transparent;

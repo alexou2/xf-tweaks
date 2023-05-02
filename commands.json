@@ -1,0 +1,9 @@
+{
+    "commands": [
+        {
+            "name": "list files",
+            "command":"ls -a",
+            "desctiption":"will list every file and folder, including hidden ones"
+        }
+    ]
+}
