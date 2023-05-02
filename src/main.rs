@@ -35,7 +35,7 @@ fn on_activate(application: &gtk4::Application) {
     let window = gtk4::ApplicationWindow::new(application);
     // … with a button in it …
     let button = gtk4::Button::with_label("Hello World!");
-    let button2 = gtk4::Button::with_label("change me!");
+    let close_window = gtk4::Button::with_label("change me!");
     let text_container = gtk4::Box::builder()
         .halign(gtk4::Align::Center)
         .orientation(gtk4::Orientation::Horizontal)
@@ -44,7 +44,7 @@ fn on_activate(application: &gtk4::Application) {
     // … which closes the window when clicked
     // button.connect_clicked(clone!(@weak window => move |_| window.close()));
     button.connect_clicked(clone!(@weak window => move |_| println!("button clicked")));
-    button2.connect_clicked(clone!(@weak window => move |_| window.close()));
+    close_window.connect_clicked(clone!(@weak window => move |_| window.close()));
     // text_container.type_();
 
     let from_entry = gtk4::Entry::builder()
@@ -55,7 +55,7 @@ text_container.append(&from_entry);
 
     // window.set_child(Some(&button));
     container.append(&button);
-    container.append(&button2);
+    container.append(&close_window);
     container.append(&text_container);
     window.set_child(Some(&container));
     window.present();
