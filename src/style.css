@@ -1,0 +1,12 @@
+/* *{
+    background-color: blue;
+    
+} */
+.button.button2{
+    color: black;
+}
+button.button1:hover {
+    transition: 500ms;
+    color: red;
+    background-color: yellow;
+}
