@@ -1,12 +1,6 @@
 {
     "applications": [
         {
-            "name": "tree",
-            "command": "sudo apt install tree",
-            "desctiption": "lists all files as a tree",
-            "needs_sudo": true
-        },
-        {
             "name": "nautilus",
             "command": "sudo apt install nautilus",
             "desctiption": "the default gnome file manager",
@@ -68,5 +62,20 @@
             "desctiption": "the rust programming language",
             "needs_sudo": true
         }
-    ]
+    ],
+    "utilities": [
+        {
+            "name": "tree",
+            "command": "sudo apt install tree",
+            "desctiption": "lists all files as a tree",
+            "needs_sudo": true
+        },
+        {
+            "name": "tlp",
+            "command": "sudo apt install tlp",
+            "desctiption": "saves power on laptops by turning off features that aren't used",
+            "needs_sudo": true
+        }
+    ],
+    "system_tweaks": []
 }
