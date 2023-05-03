@@ -80,6 +80,6 @@ fn main() {
     app.connect_activate(on_activate);
     // Run the application
     // app.run();
-    utils::convert_to_struct();
-    // print!("{}", commands::Commands())
+    // utils::convert_to_struct()
+    utils::t()
 }

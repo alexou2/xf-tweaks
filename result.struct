@@ -5,7 +5,7 @@ let nautilus = install_commands{
             needs_sudo:true
         };
 
-let vs code = install_commands{
+let vscode = install_commands{
             name:"vs code",
             command:"sudo apt install code",
             description:null,
@@ -33,7 +33,7 @@ let chromium = install_commands{
             needs_sudo:true
         };
 
-let virt-manager = install_commands{
+let virt_manager = install_commands{
             name:"virt-manager",
             command:"sudo apt install virt-manager",
             description:null,
@@ -82,17 +82,17 @@ let tlp = install_commands{
             needs_sudo:true
         };
 
-let openssh server = install_commands{
+let opensshserver = install_commands{
             name:"openssh server",
             command:["sudo apt install openssh-server","sudo systemctl enable sshd"],
             description:null,
             needs_sudo:true
         };
 
-let ls -a = install_commands{
+let ls_a = install_commands{
             name:"ls -a",
             command:"ls",
-            description:null,
+            description:"lists files",
             needs_sudo:false
         };
 

@@ -88,13 +88,13 @@
         {
             "name": "ls -a",
             "command": "ls",
-            "desctiption": "lists files",
+            "description": "lists files",
             "needs_sudo": false
         },
         {
             "name": "pwd",
             "command": "pwd",
-            "desctiption": "pwd",
+            "description": "pwd",
             "needs_sudo": false
         }
     ]

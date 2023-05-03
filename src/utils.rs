@@ -31,7 +31,7 @@ pub fn convert_to_struct() {
             description:{},
             needs_sudo:{}
         }};\n",
-            i["name"].to_string().replace('"', ""),
+            i["name"].to_string().replace('"', "").replace("-", "_").replace(" ", ""),
             i["name"],
             i["command"],
             i["description"],
@@ -56,8 +56,13 @@ pub fn read_file(file_name: &str) -> Result<String, Box<dyn std::error::Error>> 
 
 pub fn write_file(buffer: String, target_file: &str) -> std::io::Result<()> {
     let mut file = File::create(target_file)?;
-    // file.write_fmt(buffer)?;
     write!(file, "{}", buffer).expect("msg");
 
     Ok(())
+}
+
+
+pub fn t(){
+    let file = read_file("src/commands.json").expect("msg");
+    write_file(file.replace("desctiption", "description"), "src/commands.json");
 }
