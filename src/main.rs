@@ -1,17 +1,14 @@
 use glib::clone;
 // glib and other dependencies are re-exported by the gtk crate
-use gio::prelude::*;
 use gtk4::gdk::Display;
 use gtk4::glib;
 use gtk4::prelude::*;
-use gtk4::{gdk, gio};
 use gtk4::{
     Application, ApplicationWindow, Box, Button, CssProvider, DropDown, Entry, Label, Orientation,
     StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
-use std::process::Command;
 mod json;
-use serde_json::{Result, Value};
+mod utils;
 
 use gtk4::traits::{ButtonExt, GtkWindowExt, WidgetExt};
 
@@ -55,11 +52,12 @@ fn on_activate(application: &gtk4::Application) {
         .build();
     text_container.append(&from_entry);
 
-    button
-        .connect_clicked(clone!(@weak window => move |_| run_command(&from_entry.text().as_str())));
+    button.connect_clicked(
+        clone!(@weak window => move |_| utils::run_command(&from_entry.text().as_str())),
+    );
     css.connect_clicked(clone!(@weak window => move |_|
         let command = &json::read_json("commands.json")["debug"][1]["command"].to_string();
-        run_command(&command.replace('"', ""))
+        utils::run_command(&command.replace('"', ""))
         // println!("{}", command)
     ));
 
@@ -82,46 +80,6 @@ fn main() {
     app.connect_activate(on_activate);
     // Run the application
     // app.run();
-    convert_to_struct();
+    utils::convert_to_struct();
     // print!("{}", commands::Commands())
-}
-fn run_command(command_to_run: &str) {
-    let split = command_to_run.split(' ');
-    let mut args: Vec<&str> = split.collect();
-    let command = args[0];
-    args.remove(0);
-
-    let output = Command::new(command)
-        .args(args)
-        .output()
-        .expect("Failed to execute command");
-
-    println!("{}", String::from_utf8_lossy(&output.stdout));
-}
-
-fn convert_to_struct() {
-    let data = &json::read_json("commands.json")["applications"];
-    let arr = data.as_array().unwrap();
-    let mut buffer: Vec<String> = Vec::new();
-
-    for i in arr {
-        let str = format!(
-            "let {} = install_commands{{
-            name:{},
-            command:{},
-            description:{},
-            needs_sudo:{}
-        }};\n",
-            i["name"].to_string().replace('"', ""),
-            i["name"],
-            i["command"],
-            i["description"],
-            i["needs_sudo"]
-        );
-        buffer.push(str);
-    }
-    // for i in buffer {
-    //     print!("{}", i)
-    // }
-    json::write_file(buffer.join("\n"), "result.struct");
 }
