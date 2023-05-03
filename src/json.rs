@@ -1,6 +1,8 @@
 // a module dedicated to parsing json files
 use serde_json::Value;
 use std::fs::read_to_string;
+use std::fs::File;
+use std::io::Write;
 
 pub fn read_file(file_name: &str) -> Result<String, Box<dyn std::error::Error>> {
     let file_buffer = read_to_string(&file_name).unwrap();
@@ -19,4 +21,12 @@ pub fn read_json(file_path: &str) -> Value {
 }
 pub fn print_json(json: &Value) {
     println!("{}", serde_json::to_string_pretty(&json).unwrap());
+}
+
+pub fn write_file(buffer: String, target_file: &str) -> std::io::Result<()> {
+    let mut file = File::create(target_file)?;
+    // file.write_fmt(buffer)?;
+    write!(file, "{}", buffer).expect("msg");
+
+    Ok(())
 }

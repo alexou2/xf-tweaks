@@ -41,9 +41,8 @@
             "command": "sudo apt install lutris",
             "desctiption": "play windows games on linux",
             "needs_sudo": true
-        }
-    ],
-    "code languages": [
+        },
+
         {
             "name": "rust",
             "command": "sudo apt install cargo",
@@ -61,9 +60,8 @@
             "command": "sudo apt install cargo",
             "desctiption": "the rust programming language",
             "needs_sudo": true
-        }
-    ],
-    "utilities": [
+        },
+
         {
             "name": "tree",
             "command": "sudo apt install tree",
@@ -75,9 +73,8 @@
             "command": "sudo apt install tlp",
             "desctiption": "saves power on laptops by turning off features that aren't used",
             "needs_sudo": true
-        }
-    ],
-    "system_tweaks": [
+        },
+
         {
             "name": "openssh server",
             "command": [
@@ -86,10 +83,8 @@
             ],
             "desctiption": "enables remote logging into the pc",
             "needs_sudo": true
-        }
-    ],
-    "keyboard_shortcuts": [],
-    "debug":[
+        },
+
         {
             "name": "ls -a",
             "command": "ls",
