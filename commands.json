@@ -88,5 +88,19 @@
             "needs_sudo": true
         }
     ],
-    "shortcuts": []
+    "keyboard_shortcuts": [],
+    "debug":[
+        {
+            "name": "ls -a",
+            "command": "ls",
+            "desctiption": "lists files",
+            "needs_sudo": false
+        },
+        {
+            "name": "pwd",
+            "command": "pwd",
+            "desctiption": "pwd",
+            "needs_sudo": false
+        }
+    ]
 }

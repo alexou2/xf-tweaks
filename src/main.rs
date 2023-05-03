@@ -56,11 +56,10 @@ fn on_activate(application: &gtk4::Application) {
 
     button
         .connect_clicked(clone!(@weak window => move |_| run_command(&from_entry.text().as_str())));
-    let mut i = 0;
     css.connect_clicked(clone!(@weak window => move |_| 
-        
-        json::print_json(&json::read_json("commands.json")["applications"][i]["command"])
-        
+        let command = &json::read_json("commands.json")["debug"][1]["command"].to_string();
+        run_command(&command.replace('"', ""))
+        // println!("{}", command)
     ));
 
     close_window.connect_clicked(clone!(@weak window => move |_| window.close()));
