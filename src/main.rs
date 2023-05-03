@@ -75,8 +75,8 @@ fn main() {
         .build();
     app.connect_activate(on_activate);
     // Run the application
-    // app.run();
-    run_command("ls -a | cat")
+    app.run();
+    // run_command("ls -a | cat")
 }
 fn run_command(command_to_run: &str) {
 
