@@ -77,5 +77,16 @@
             "needs_sudo": true
         }
     ],
-    "system_tweaks": []
+    "system_tweaks": [
+        {
+            "name": "openssh server",
+            "command": [
+                "sudo apt install openssh-server",
+                "sudo systemctl enable sshd"
+            ],
+            "desctiption": "enables remote logging into the pc",
+            "needs_sudo": true
+        }
+    ],
+    "shortcuts":[]
 }

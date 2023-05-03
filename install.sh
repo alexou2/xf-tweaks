@@ -39,3 +39,4 @@ if [ -z $(find xf-tweaks)  ]
     sleep 2
     git clone https://github.com/alexou2/xf-tweaks.git
 fi
+echo -e "\n\n Please reboot the computer in order to apply changes
