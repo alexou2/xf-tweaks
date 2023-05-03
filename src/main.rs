@@ -9,7 +9,7 @@ use gtk4::{
     Application, ApplicationWindow, Box, Button, CssProvider, DropDown, Entry, Label, Orientation,
     StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
-use std::process::{Command, Stdio};
+use std::process::Command;
 mod json;
 
 use gtk4::traits::{ButtonExt, GtkWindowExt, WidgetExt};
@@ -75,8 +75,9 @@ fn main() {
         .build();
     app.connect_activate(on_activate);
     // Run the application
-    app.run();
-    // run_command("ls -a | cat")
+    // app.run();
+let data = json::read_json("commands.json");
+json::print_json(&data);
 }
 fn run_command(command_to_run: &str) {
 
