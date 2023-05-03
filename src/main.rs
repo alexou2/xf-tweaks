@@ -56,6 +56,12 @@ fn on_activate(application: &gtk4::Application) {
 
     button
         .connect_clicked(clone!(@weak window => move |_| run_command(&from_entry.text().as_str())));
+    let mut i = 0;
+    css.connect_clicked(clone!(@weak window => move |_| 
+        
+        json::print_json(&json::read_json("commands.json")["applications"][i]["command"])
+        
+    ));
 
     close_window.connect_clicked(clone!(@weak window => move |_| window.close()));
 
@@ -75,22 +81,18 @@ fn main() {
         .build();
     app.connect_activate(on_activate);
     // Run the application
-    // app.run();
-let data = json::read_json("commands.json");
-json::print_json(&data);
+    app.run();
 }
 fn run_command(command_to_run: &str) {
-
-
     let split = command_to_run.split(' ');
     let mut args: Vec<&str> = split.collect();
     let command = args[0];
     args.remove(0);
 
     let output = Command::new(command)
-    .args(args)
-    .output()
-    .expect("Failed to execute command");
+        .args(args)
+        .output()
+        .expect("Failed to execute command");
 
     println!("{}", String::from_utf8_lossy(&output.stdout));
 }
