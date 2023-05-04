@@ -1,53 +1,53 @@
 use glib::clone;
 // glib and other dependencies are re-exported by the gtk crate
-use gtk4::gdk::Display;
-use gtk4::glib;
-use gtk4::prelude::*;
-use gtk4::{
+use gtk::gdk::Display;
+use gtk::glib;
+use gtk::prelude::*;
+use gtk::{
     Application, ApplicationWindow, Box, Button, CssProvider, DropDown, Entry, Label, Orientation,
     StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
 mod json;
 mod utils;
 
-use gtk4::traits::{ButtonExt, GtkWindowExt, WidgetExt};
+use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
 
 // When the application is launched…
-fn on_activate(application: &gtk4::Application) {
+fn on_activate(application: &gtk::Application) {
     // style
     let provider = CssProvider::new();
     provider.load_from_data(include_str!("style.css"));
 
-    gtk4::style_context_add_provider_for_display(
+    gtk::style_context_add_provider_for_display(
         &Display::default().expect("Could not connect to a display."),
         &provider,
         STYLE_PROVIDER_PRIORITY_APPLICATION,
     );
-    let container = gtk4::Box::builder()
-        .orientation(gtk4::Orientation::Vertical)
+    let container = gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
         .margin_top(24)
         .margin_bottom(24)
         .margin_start(24)
         .margin_end(24)
-        .halign(gtk4::Align::Center)
-        .valign(gtk4::Align::Center)
+        .halign(gtk::Align::Center)
+        .valign(gtk::Align::Center)
         .spacing(24)
         .build();
 
     // … create a new window …
-    let window = gtk4::ApplicationWindow::new(application);
+    let window = gtk::ApplicationWindow::new(application);
     // … with a button in it …
-    let button = gtk4::Button::with_label("Submit");
-    let close_window = gtk4::Button::with_label("Exit");
-    let text_container = gtk4::Box::builder()
-        .halign(gtk4::Align::Center)
-        .orientation(gtk4::Orientation::Horizontal)
+    let button = gtk::Button::with_label("Submit");
+    let close_window = gtk::Button::with_label("Exit");
+    let text_container = gtk::Box::builder()
+        .halign(gtk::Align::Center)
+        .orientation(gtk::Orientation::Horizontal)
         .spacing(24)
         .build();
-    let css = gtk4::Button::with_label("get css");
+    let css = gtk::Button::with_label("get css");
     css.add_css_class("css-button");
 
-    let from_entry = gtk4::Entry::builder()
+    let from_entry = gtk::Entry::builder()
         .placeholder_text("Enter command")
         .build();
     text_container.append(&from_entry);
@@ -73,7 +73,7 @@ fn on_activate(application: &gtk4::Application) {
 
 fn main() {
     // Create a new application with the builder pattern
-    let app = gtk4::Application::builder()
+    let app = gtk::Application::builder()
         // .application_id("com.github.gtk-rs.examples.basic")
         .application_id("xf-tweaks")
         .build();
