@@ -20,27 +20,39 @@ pub fn run_command(command_to_run: &str) {
 
 pub fn convert_to_struct() {
     let data = &json::read_json("commands.json")["applications"];
+    // println!("{}", data);
     let arr = data.as_array().unwrap();
     let mut buffer: Vec<String> = Vec::new();
 
+
     for i in arr {
+       println!("{:?}", i.get("superclass"));
+        
+        
         let str = format!(
             "let {} = install_commands{{
             name:{},
             command:{},
             description:{},
-            needs_sudo:{}
+            needs_sudo:{},
+            app_type:{},
         }};\n",
-            i["name"].to_string().replace('"', "").replace("-", "_").replace(" ", ""),
+            i["name"]
+                .to_string()
+                .replace('"', "")
+                .replace("-", "_")
+                .replace(" ", ""),
             i["name"],
             i["command"],
             i["description"],
-            i["needs_sudo"]
+            i["needs_sudo"],
+            i["type"]
         );
         buffer.push(str);
     }
 
     write_file(buffer.join("\n"), "result.struct");
+    // println!("{}", &buffer.join("\n"));
 }
 
 pub fn type_of<T>(_: &T) -> String {
@@ -61,8 +73,7 @@ pub fn write_file(buffer: String, target_file: &str) -> std::io::Result<()> {
     Ok(())
 }
 
-
-pub fn t(){
-    let file = read_file("src/commands.json").expect("msg");
-    write_file(file.replace("desctiption", "description"), "src/commands.json");
+pub fn t() {
+    let file = read_file("commands.json").expect("msg");
+    write_file(file.replace("desctiption", "description"), "commands.json");
 }

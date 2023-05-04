@@ -1,109 +1,144 @@
 pub fn cmd() {
-
     struct install_commands {
-        name:str,
-        command:str,
-        description:str,
-        requires_sudo:bool
+        name: str,
+        command: str,
+        description: str,
+        requires_sudo: bool,
+        app_type: str,
     }
 
-    
+    let applications: Vec<install_commands>::new();
+    let programming_languages: Vec<install_commands>::new();
+    let utilities: Vec<install_commands>::new();
+    let system_tweaks: Vec<install_commands>::new();
+    let keyboard_shortcut: Vec<install_commands>::new();
+
     let nautilus = install_commands{
         name:"nautilus",
         command:"sudo apt install nautilus",
-        description:null,
-        needs_sudo:true
+        description:"the default gnome file manager",
+        needs_sudo:true,
+        app_type:"application",
     };
 
-let vs_code = install_commands{
+let vscode = install_commands{
         name:"vs code",
         command:"sudo apt install code",
-        description:null,
-        needs_sudo:true
+        description:"lightweight code IDE",
+        needs_sudo:true,
+        app_type:"application",
     };
 
 let kate = install_commands{
         name:"kate",
         command:"sudo apt install kate",
-        description:null,
-        needs_sudo:true
+        description:"lightweight text editor",
+        needs_sudo:true,
+        app_type:"application",
     };
 
 let vlc = install_commands{
         name:"vlc",
         command:"sudo apt install vlc",
-        description:null,
-        needs_sudo:true
+        description:"an awesome media player",
+        needs_sudo:true,
+        app_type:"application",
     };
 
 let chromium = install_commands{
         name:"chromium",
         command:"sudo apt install chromium-browser",
-        description:null,
-        needs_sudo:true
+        description:"the open-source base of chrome and ms edge",
+        needs_sudo:true,
+        app_type:"application",
     };
 
 let virt_manager = install_commands{
         name:"virt-manager",
         command:"sudo apt install virt-manager",
-        description:null,
-        needs_sudo:true
+        description:"a virtual machine manager",
+        needs_sudo:true,
+        app_type:"application",
     };
 
 let lutris = install_commands{
         name:"lutris",
         command:"sudo apt install lutris",
-        description:null,
-        needs_sudo:true
+        description:"play windows games on linux",
+        needs_sudo:true,
+        app_type:"application",
     };
 
 let rust = install_commands{
         name:"rust",
         command:"sudo apt install cargo",
-        description:null,
-        needs_sudo:true
+        description:"the rust programming language",
+        needs_sudo:true,
+        app_type:"programming_language",
     };
 
 let nodejs = install_commands{
         name:"nodejs",
         command:"sudo apt install nodejs npm",
-        description:null,
-        needs_sudo:true
+        description:"javascript for the server",
+        needs_sudo:true,
+        app_type:"programming_language",
     };
 
 let tree = install_commands{
         name:"tree",
         command:"sudo apt install tree",
-        description:null,
-        needs_sudo:true
+        description:"lists all files as a tree",
+        needs_sudo:true,
+        app_type:"utilities",
     };
 
 let tlp = install_commands{
         name:"tlp",
         command:"sudo apt install tlp",
-        description:null,
-        needs_sudo:true
+        description:"saves power on laptops by turning off features that aren't used",
+        needs_sudo:true,
+        app_type:"utilities",
     };
 
-let openssh_server = install_commands{
+let neofetch = install_commands{
+        name:"neofetch",
+        command:"sudo apt install neofetch",
+        description:"shows system specs in a cool way",
+        needs_sudo:true,
+        app_type:"utilities",
+    };
+
+let htop = install_commands{
+        name:"htop",
+        command:"sudo apt install htop",
+        description:"a lightweight task manager",
+        needs_sudo:true,
+        app_type:"utilities",
+    };
+
+let opensshserver = install_commands{
         name:"openssh server",
         command:["sudo apt install openssh-server","sudo systemctl enable sshd"],
-        description:null,
-        needs_sudo:true
+        description:"enables remote logging into the pc",
+        needs_sudo:true,
+        app_type:"tweak",
     };
 
-let ls = install_commands{
+let ls_a = install_commands{
         name:"ls -a",
         command:"ls",
-        description:null,
-        needs_sudo:false
+        description:"lists files",
+        needs_sudo:false,
+        app_type:"debug",
     };
 
 let pwd = install_commands{
         name:"pwd",
         command:"pwd",
-        description:null,
-        needs_sudo:false
+        description:"pwd",
+        needs_sudo:false,
+        app_type:"debug",
     };
 
 }

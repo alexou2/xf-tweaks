@@ -3,76 +3,93 @@
         {
             "name": "nautilus",
             "command": "sudo apt install nautilus",
-            "desctiption": "the default gnome file manager",
-            "needs_sudo": true
+            "description": "the default gnome file manager",
+            "needs_sudo": true,
+            "type":"application"
         },
         {
             "name": "vs code",
             "command": "sudo apt install code",
-            "desctiption": "lightweight code IDE",
-            "needs_sudo": true
+            "description": "lightweight code IDE",
+            "needs_sudo": true,
+            "type":"application"
         },
         {
             "name": "kate",
             "command": "sudo apt install kate",
-            "desctiption": "lightweight text editor",
-            "needs_sudo": true
+            "description": "lightweight text editor",
+            "needs_sudo": true,
+            "type":"application"
         },
         {
             "name": "vlc",
             "command": "sudo apt install vlc",
-            "desctiption": "an awesome media player",
-            "needs_sudo": true
+            "description": "an awesome media player",
+            "needs_sudo": true,
+            "type":"application"
         },
         {
             "name": "chromium",
             "command": "sudo apt install chromium-browser",
-            "desctiption": "the open-source base of chrome and ms edge",
-            "needs_sudo": true
+            "description": "the open-source base of chrome and ms edge",
+            "needs_sudo": true,
+            "type":"application"
         },
         {
             "name": "virt-manager",
             "command": "sudo apt install virt-manager",
-            "desctiption": "a virtual machine manager",
-            "needs_sudo": true
+            "description": "a virtual machine manager",
+            "needs_sudo": true,
+            "type":"application"
         },
         {
             "name": "lutris",
             "command": "sudo apt install lutris",
-            "desctiption": "play windows games on linux",
-            "needs_sudo": true
+            "description": "play windows games on linux",
+            "needs_sudo": true,
+            "type":"application"
         },
-
         {
             "name": "rust",
             "command": "sudo apt install cargo",
-            "desctiption": "the rust programming language",
-            "needs_sudo": true
+            "description": "the rust programming language",
+            "needs_sudo": true,
+            "type":"programming_language"
         },
         {
             "name": "nodejs",
             "command": "sudo apt install nodejs npm",
-            "desctiption": "javascript for the server",
-            "needs_sudo": true
+            "description": "javascript for the server",
+            "needs_sudo": true,
+            "type":"programming_language"
         },
-        {
-            "name": "rust",
-            "command": "sudo apt install cargo",
-            "desctiption": "the rust programming language",
-            "needs_sudo": true
-        },
-
         {
             "name": "tree",
             "command": "sudo apt install tree",
-            "desctiption": "lists all files as a tree",
-            "needs_sudo": true
+            "description": "lists all files as a tree",
+            "needs_sudo": true,
+            "type":"utilities"
         },
         {
             "name": "tlp",
             "command": "sudo apt install tlp",
-            "desctiption": "saves power on laptops by turning off features that aren't used",
-            "needs_sudo": true
+            "description": "saves power on laptops by turning off features that aren't used",
+            "needs_sudo": true,
+            "type":"utilities"
+        },
+        {
+            "name": "neofetch",
+            "command": "sudo apt install neofetch",
+            "description": "shows system specs in a cool way",
+            "needs_sudo": true,
+            "type":"utilities"
+        },
+        {
+            "name": "htop",
+            "command": "sudo apt install htop",
+            "description": "a lightweight task manager",
+            "needs_sudo": true,
+            "type":"utilities"
         },
 
         {
@@ -81,21 +98,23 @@
                 "sudo apt install openssh-server",
                 "sudo systemctl enable sshd"
             ],
-            "desctiption": "enables remote logging into the pc",
-            "needs_sudo": true
+            "description": "enables remote logging into the pc",
+            "needs_sudo": true,
+            "type":"tweak"
         },
-
         {
             "name": "ls -a",
             "command": "ls",
             "description": "lists files",
-            "needs_sudo": false
+            "needs_sudo": false,
+            "type":"debug"
         },
         {
             "name": "pwd",
             "command": "pwd",
             "description": "pwd",
-            "needs_sudo": false
+            "needs_sudo": false,
+            "type":"debug"
         }
     ]
 }
