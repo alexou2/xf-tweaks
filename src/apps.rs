@@ -79,6 +79,15 @@ pub fn cmd() {
     };
     application.add(lutris);
 
+    let gnome_disks = install_commands {
+        name: "gnome-disks",
+        command: "sudo apt install gnome-disks",
+        description: "the default disk manager of gnome",
+        needs_sudo: true,
+        app_type: "application",
+    };
+    application.add(gnome_disks);
+
     let rust = install_commands {
         name: "rust",
         command: "sudo apt install cargo",
