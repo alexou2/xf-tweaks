@@ -25,24 +25,24 @@ pub fn convert_to_struct() {
     let mut buffer: Vec<String> = Vec::new();
 
     for i in arr {
-        println!("{:?}", i.get("superclass"));
 
         let str = format!(
             "let {} = install_commands{{
             name:{},
-            command:{},
+            command:vec![{}],
             description:{},
             needs_sudo:{},
             app_type:{},
         }};
-        {}.add({});\n",
+        {}.push(&{});\n",
+        // values for the struct
             i["name"]
                 .to_string()
                 .replace('"', "")
                 .replace("-", "_")
                 .replace(" ", ""),
             i["name"],
-            i["command"],
+            i["command"].to_string().replace('[', "").replace(']', ""),
             i["description"],
             i["needs_sudo"],
             i["type"],
@@ -57,7 +57,6 @@ pub fn convert_to_struct() {
     }
 
     write_file(buffer.join("\n"), "result.struct");
-    // println!("{}", &buffer.join("\n"));
 }
 
 pub fn type_of<T>(_: &T) -> String {
