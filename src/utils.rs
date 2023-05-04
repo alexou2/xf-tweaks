@@ -24,11 +24,9 @@ pub fn convert_to_struct() {
     let arr = data.as_array().unwrap();
     let mut buffer: Vec<String> = Vec::new();
 
-
     for i in arr {
-       println!("{:?}", i.get("superclass"));
-        
-        
+        println!("{:?}", i.get("superclass"));
+
         let str = format!(
             "let {} = install_commands{{
             name:{},
@@ -36,7 +34,8 @@ pub fn convert_to_struct() {
             description:{},
             needs_sudo:{},
             app_type:{},
-        }};\n",
+        }};
+        {}.add({});\n",
             i["name"]
                 .to_string()
                 .replace('"', "")
@@ -46,7 +45,13 @@ pub fn convert_to_struct() {
             i["command"],
             i["description"],
             i["needs_sudo"],
-            i["type"]
+            i["type"],
+            i["type"].to_string().replace('"', ""),
+            i["name"]
+                .to_string()
+                .replace('"', "")
+                .replace("-", "_")
+                .replace(" ", "")
         );
         buffer.push(str);
     }

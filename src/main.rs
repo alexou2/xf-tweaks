@@ -79,7 +79,7 @@ fn main() {
         .build();
     app.connect_activate(on_activate);
     // Run the application
-    // app.run();
+    app.run();
     // utils::t();
-     utils::convert_to_struct();
+    //  utils::convert_to_struct();
 }
