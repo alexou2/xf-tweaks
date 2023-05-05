@@ -37,6 +37,8 @@ if [ -z $(find xf-tweaks)  ]
     echo "cloning code from github in 2 sec..."
     # leaves time to cancel for debugging
     sleep 2
+    # clones the whole repository 
     git clone https://github.com/alexou2/xf-tweaks.git
+
 fi
 echo -e "\n\n Please reboot the computer in order to apply changes
