@@ -8,7 +8,9 @@ pub fn run_command(command_to_run: &str) {
     let split = command_to_run.split(' ');
     let mut args: Vec<&str> = split.collect();
     let command = args[0];
+    println!("{},  {:?}", command, args);
     args.remove(0);
+
 
     let output = Command::new(command)
         .args(args)

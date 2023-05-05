@@ -1,3 +1,4 @@
+use apps::install_commands;
 use glib::clone;
 use gtk::gdk::Display;
 use gtk::glib;
@@ -7,12 +8,22 @@ use gtk::{
     Application, ApplicationWindow, Box, Button, CssProvider, DropDown, Entry, Label, Orientation,
     StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
+use json::print_json;
+use lazy_static::lazy_static;
+use std::sync::Mutex;
 
+mod apps;
 mod json;
 mod utils;
+use serde_json::Value;
 
 // the list of commands that will be executed
-pub static mut CMD_LIST: Vec<apps::install_commands> = Vec::new();
+// const
+lazy_static! {
+    static ref CMD_LIST: Vec<Value> = apps::return_json();
+    static ref command_to_run: Vec<Value> = Vec::new();
+    static ref MY_VECTOR: Mutex<Vec<Value>> = Mutex::new(Vec::new());
+}
 
 // fn on_activate(application: &gtk::Application) {
 //     let provider = CssProvider::new();
@@ -111,6 +122,15 @@ fn build_ui(app: &Application) {
     content.append(&enter);
     content.append(&label);
 
+    for obj in apps::return_json() {
+        let cmd_button = Button::builder()
+            .label(format!("{}", obj["name"]))
+            .opacity(1.0)
+            .build();
+        content.append(&cmd_button);
+        cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
+    }
+
     let window = ApplicationWindow::builder()
         .title("xf-tweaks")
         .application(app)
@@ -120,28 +140,22 @@ fn build_ui(app: &Application) {
     window.show();
 }
 
-mod apps;
+// mod apps;
 
-pub fn add_to_cmd_list() {}
+pub fn add_to_cmd_list(command: Value) {
+    let mut vect = MY_VECTOR.lock().unwrap();
+    vect.push(command);
+    println!("added")
+}
+
+
 pub fn run_cmd() {
-    let pwd = apps::install_commands {
-        name: "pwd",
-        command: vec!["pwd"],
-        description: "pwd",
-        needs_sudo: false,
-        app_type: "debug",
-    };
+// print!("{}", MY_VECTOR.lock().unwrap()[1]);
+    let commands = MY_VECTOR.lock().unwrap().to_vec();
+println!("{}", commands[0]);
 
-    let ls_a = apps::install_commands {
-        name: "ls -a",
-        command: vec!["ls"],
-        description: "lists files",
-        needs_sudo: false,
-        app_type: "debug",
-    };
-    unsafe { CMD_LIST.push(ls_a) };
-    unsafe { CMD_LIST.push(pwd) };
-    for i in unsafe { &CMD_LIST } {
-        utils::run_command(&i.command.join(" "))
+    for cmd in commands {
+        let value = cmd["command"].to_string();
+        utils::run_command(value.replace('"', "").as_str());
     }
 }
