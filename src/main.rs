@@ -4,8 +4,8 @@ use gtk::glib;
 use gtk::prelude::*;
 use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
 use gtk::{
-    Application, ApplicationWindow, Box, Button, CssProvider, DropDown, Entry, Label, Orientation,
-    StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
+    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
+    Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
 use json::print_json;
 use lazy_static::lazy_static;
@@ -104,7 +104,8 @@ fn build_ui(app: &Application) {
         .build();
 
     // creates a useless button
-    let button = Button::builder()
+    // let button = Button::builder()
+    let button = CheckButton::builder()
         .label("click me ")
         .margin_top(12)
         .margin_bottom(12)
@@ -112,11 +113,16 @@ fn build_ui(app: &Application) {
         .margin_start(12)
         .focus_on_click(true)
         .build();
-    button.connect_clicked(move |_| println!("opopop")); // button action
+    // button.connect_clicked(move |_| println!("opopop")); // button action
 
+    // creates a submit button
     let enter = Button::builder().label("submit").build();
-    enter.connect_clicked(move |_| run_cmd());
+    // enter.connect_clicked(move |_| run_cmd());
+    enter.connect_clicked(clone!(@weak button => move |_|if button.is_active()
+    { println!("click"); }
+    )); // button action
 
+    // the list of what is in the app
     let content = Box::new(Orientation::Vertical, 0);
     // adds the buttons to the window
     content.append(&button);
