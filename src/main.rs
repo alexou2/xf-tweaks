@@ -151,11 +151,25 @@ pub fn add_to_cmd_list(command: Value) {
 
 pub fn run_cmd() {
 // print!("{}", MY_VECTOR.lock().unwrap()[1]);
-    let commands = MY_VECTOR.lock().unwrap().to_vec();
+    let mut commands = MY_VECTOR.lock().unwrap().to_vec();
 println!("{}", commands[0]);
 
-    for cmd in commands {
-        let value = cmd["command"].to_string();
-        utils::run_command(value.replace('"', "").as_str());
+// runs every command in the array
+    for cmd in &commands {
+if cmd["command"].is_array(){
+    println!("true");
+}else {
+    println!("false");
+}
+        // let value = cmd["command"].to_string().replace('"', "");
+// println!("{}", );
+
+
+        
+        // utils::run_command(value.as_str());
     }
+    // let size: i32 = commands.len().try_into().unwrap();
+    // for i in 0..size{
+    //     commands.remove(i.try_into().unwrap());
+    // }
 }

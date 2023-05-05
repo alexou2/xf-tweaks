@@ -123,6 +123,16 @@ pub const JSON_DATA: &str = r#"
             "description": "pwd",
             "needs_sudo": false,
             "type":"debug"
+        },
+        {
+            "name": "test_arr",
+            "command": [
+                "clear",
+                "touch succes.txt"
+            ],
+            "description": "pwd",
+            "needs_sudo": false,
+            "type":"debug"
         }
     ]
 }
