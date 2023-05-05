@@ -1,4 +1,3 @@
-// use apps::install_commands;
 use glib::clone;
 use gtk::gdk::Display;
 use gtk::glib;
@@ -18,11 +17,10 @@ mod utils;
 use serde_json::Value;
 
 // the list of commands that will be executed
-// const
 lazy_static! {
-    static ref CMD_LIST: Vec<Value> = apps::return_json();
+    static ref CMD_LIST: Vec<Value> = apps::return_json(); // list all of the commands
     static ref command_to_run: Vec<Value> = Vec::new();
-    static ref MY_VECTOR: Mutex<Vec<Value>> = Mutex::new(Vec::new());
+    static ref MY_VECTOR: Mutex<Vec<Value>> = Mutex::new(Vec::new()); // the list of commands that were selected
 }
 
 // fn on_activate(application: &gtk::Application) {
