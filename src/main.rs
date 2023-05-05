@@ -1,4 +1,4 @@
-use apps::install_commands;
+// use apps::install_commands;
 use glib::clone;
 use gtk::gdk::Display;
 use gtk::glib;
