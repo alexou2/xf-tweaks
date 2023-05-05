@@ -20,46 +20,46 @@ pub fn run_command(command_to_run: &str) {
     println!("{}", String::from_utf8_lossy(&output.stdout));
 }
 
-pub fn convert_to_struct() {
-    let data = &json::read_json("commands.json")["applications"];
-    // println!("{}", data);
-    let arr = data.as_array().unwrap();
-    let mut buffer: Vec<String> = Vec::new();
+// pub fn convert_to_struct() {
+//     let data = &json::read_json("commands.json")["applications"];
+//     // println!("{}", data);
+//     let arr = data.as_array().unwrap();
+//     let mut buffer: Vec<String> = Vec::new();
 
-    for i in arr {
+//     for i in arr {
 
-        let str = format!(
-            "let {} = install_commands{{
-            name:{},
-            command:vec![{}],
-            description:{},
-            needs_sudo:{},
-            app_type:{},
-        }};
-        {}.push(&{});\n",
-        // values for the struct
-            i["name"]
-                .to_string()
-                .replace('"', "")
-                .replace("-", "_")
-                .replace(" ", ""),
-            i["name"],
-            i["command"].to_string().replace('[', "").replace(']', ""),
-            i["description"],
-            i["needs_sudo"],
-            i["type"],
-            i["type"].to_string().replace('"', ""),
-            i["name"]
-                .to_string()
-                .replace('"', "")
-                .replace("-", "_")
-                .replace(" ", "")
-        );
-        buffer.push(str);
-    }
+//         let str = format!(
+//             "let {} = install_commands{{
+//             name:{},
+//             command:vec![{}],
+//             description:{},
+//             needs_sudo:{},
+//             app_type:{},
+//         }};
+//         {}.push(&{});\n",
+//         // values for the struct
+//             i["name"]
+//                 .to_string()
+//                 .replace('"', "")
+//                 .replace("-", "_")
+//                 .replace(" ", ""),
+//             i["name"],
+//             i["command"].to_string().replace('[', "").replace(']', ""),
+//             i["description"],
+//             i["needs_sudo"],
+//             i["type"],
+//             i["type"].to_string().replace('"', ""),
+//             i["name"]
+//                 .to_string()
+//                 .replace('"', "")
+//                 .replace("-", "_")
+//                 .replace(" ", "")
+//         );
+//         buffer.push(str);
+//     }
 
-    write_file(buffer.join("\n"), "result.struct");
-}
+//     write_file(buffer.join("\n"), "result.struct");
+// }
 
 pub fn type_of<T>(_: &T) -> String {
     let type_of_var = format!("{}", std::any::type_name::<T>());
@@ -77,9 +77,4 @@ pub fn write_file(buffer: String, target_file: &str) -> std::io::Result<()> {
     write!(file, "{}", buffer).expect("msg");
 
     Ok(())
-}
-
-pub fn t() {
-    let file = read_file("commands.json").expect("msg");
-    write_file(file.replace("desctiption", "description"), "commands.json");
 }
