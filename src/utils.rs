@@ -1,3 +1,5 @@
+// provides useful functions that are a pain in the ass to write
+
 use crate::json;
 use std::fs::read_to_string;
 use std::fs::File;

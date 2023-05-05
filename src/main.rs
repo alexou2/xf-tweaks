@@ -92,10 +92,11 @@ fn main() {
     // utils::convert_to_struct()
 
     app.connect_activate(build_ui);
-    app.run();
+    app.run(); // runs the window
 }
-
+// create the gtk window
 fn build_ui(app: &Application) {
+    // some text
     let label = Label::builder()
         .label("click me lololololololol")
         .margin_top(12)
@@ -104,6 +105,7 @@ fn build_ui(app: &Application) {
         .margin_start(12)
         .build();
 
+    // creates a useless button
     let button = Button::builder()
         .label("click me ")
         .margin_top(12)
@@ -112,29 +114,32 @@ fn build_ui(app: &Application) {
         .margin_start(12)
         .focus_on_click(true)
         .build();
-    button.connect_clicked(move |_| println!("opopop"));
+    button.connect_clicked(move |_| println!("opopop")); // button action
 
     let enter = Button::builder().label("submit").build();
     enter.connect_clicked(move |_| run_cmd());
 
     let content = Box::new(Orientation::Vertical, 0);
+    // adds the buttons to the window
     content.append(&button);
     content.append(&enter);
     content.append(&label);
 
+    // loop to create a button for every possible command
     for obj in apps::return_json() {
         let cmd_button = Button::builder()
             .label(format!("{}", obj["name"]))
             .opacity(1.0)
             .build();
         content.append(&cmd_button);
+        // action when button is clicked
         cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
     }
-
+    // the actual window
     let window = ApplicationWindow::builder()
         .title("xf-tweaks")
         .application(app)
-        .child(&content)
+        .child(&content) //uses the buttons/text/ etc... from content
         .build();
 
     window.show();
@@ -148,25 +153,21 @@ pub fn add_to_cmd_list(command: Value) {
     println!("added")
 }
 
-
 pub fn run_cmd() {
-// print!("{}", MY_VECTOR.lock().unwrap()[1]);
+    // print!("{}", MY_VECTOR.lock().unwrap()[1]);
     let mut commands = MY_VECTOR.lock().unwrap().to_vec();
-println!("{}", commands[0]);
+    println!("{}", commands[0]);
 
-// runs every command in the array
+    // runs every command in the array
     for cmd in &commands {
-if cmd["command"].is_array(){
-    println!("true");
-}else {
-    println!("false");
-}
+        if cmd["command"].is_array() {
+            println!("true");
+        } else {
+            println!("false");
+        }
         // let value = cmd["command"].to_string().replace('"', "");
-// println!("{}", );
+        // println!("{}", );
 
-
-        
         // utils::run_command(value.as_str());
     }
-    
 }

@@ -1,4 +1,4 @@
-// a module dedicated to parsing json files
+// a module dedicated to parsing json objects
 use serde_json::Value;
 
 

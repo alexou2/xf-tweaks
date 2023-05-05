@@ -1,8 +1,9 @@
-// use crate::apps::my::install_commands;
-use serde_json::{from_str, Value};
+// stores all of the data that will be used to run the commands from the app
 
+use serde_json::{from_str, Value};
 use crate::{json, utils::type_of};
 
+// the json that stores the list of actions that the app can do
 pub const JSON_DATA: &str = r#"
 {
     "applications": [
@@ -146,6 +147,7 @@ pub const JSON_DATA: &str = r#"
 }
 "#;
 
+// returns the json obj as a vec of Value (array of json objects)
 pub fn return_json() -> Vec<Value> {
     let json_data: Value = from_str(JSON_DATA).expect("error parsing json");
     let mut json_list: Vec<Value> = Vec::new();
