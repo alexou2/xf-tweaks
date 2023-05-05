@@ -168,8 +168,5 @@ if cmd["command"].is_array(){
         
         // utils::run_command(value.as_str());
     }
-    // let size: i32 = commands.len().try_into().unwrap();
-    // for i in 0..size{
-    //     commands.remove(i.try_into().unwrap());
-    // }
+    
 }

@@ -3,8 +3,6 @@ use serde_json::{from_str, Value};
 
 use crate::{json, utils::type_of};
 
-
-
 pub const JSON_DATA: &str = r#"
 {
     "applications": [
@@ -66,8 +64,18 @@ pub const JSON_DATA: &str = r#"
         },
         {
             "name": "nodejs",
-            "command": "sudo apt install nodejs npm",
-            "description": "javascript for the server",
+            "command": [
+                "sudo apt install nodejs npm",
+                "curl -O https://raw.githubusercontent.com/nvm-sh/nvm/master/nvm.sh"
+            ],
+            "description": "javascript for the server (installs nodejs, npm, nvm)",
+            "needs_sudo": true,
+            "type":"programming_language"
+        },
+        {
+            "name": "python",
+            "command": "sudo apt install python3 pip",
+            "description": "the python programming language (installs python, pip)",
             "needs_sudo": true,
             "type":"programming_language"
         },
