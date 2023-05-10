@@ -89,17 +89,32 @@ fn main() {
 
     // utils::convert_to_struct()
 
-    // app.connect_activate(build_ui);
-    json::find_element("ls -a");
+    app.connect_activate(build_ui);
+    // json::find_element("ls -a");
     app.run(); // runs the window
 }
-
 
 // create the gtk window
 fn build_ui(app: &Application) {
     // some text
-    let label = Label::builder()
-        .label("click me lololololololol")
+    let cli_list = Label::builder()
+        .label("command line tools")
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_end(12)
+        .margin_start(12)
+        .build();
+
+    let app_label = Label::builder()
+        .label("Applications")
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_end(12)
+        .margin_start(12)
+        .build();
+
+    let debug_menu = Label::builder()
+        .label("Debug options")
         .margin_top(12)
         .margin_bottom(12)
         .margin_end(12)
@@ -121,28 +136,47 @@ fn build_ui(app: &Application) {
     // creates a submit button
     let enter = Button::builder().label("submit").build();
     // enter.connect_clicked(move |_| run_cmd());
-    enter.connect_clicked(clone!(@weak button => move |_|if button.is_active(){
-        println!("click");
-    }
-    )); // button action
 
     // the list of what is in the app
-    let content = Box::new(Orientation::Vertical, 0);
+    let content = Box::new(Orientation::Horizontal, 4);
+    let app_list = Box::new(Orientation::Vertical, 2);
+    let cli_tools = Box::new(Orientation::Vertical, 2);
+    let debug = Box::new(Orientation::Vertical, 2);
+
     // adds the buttons to the window
-    content.append(&button);
-    content.append(&enter);
-    content.append(&label);
+    debug.append(&debug_menu);
+    app_list.append(&app_label);
+    debug.append(&button);
+    debug.append(&enter);
+    cli_tools.append(&cli_list);
 
     // loop to create a button for every possible command
     for obj in apps::return_json() {
         let cmd_button = CheckButton::builder()
             .label(format!("{}", obj["name"].to_string().replace('"', "")))
             .build();
-        content.append(&cmd_button);
-        
+
+        match obj["type"].as_str() {
+            Some("application") => app_list.append(&cmd_button),
+            Some("utilities") => cli_tools.append(&cmd_button),
+            _ => println!("error creating buttons"),
+        }
+        app_list.append(&cmd_button);
+
         // action when button is clicked
         // cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
     }
+
+    enter.connect_clicked(clone!(@weak button => move |_|if button.is_active(){
+        println!("click");
+    }
+    )); // button action
+
+    // enter.connect_clicked(|_| for i in )
+
+    content.append(&app_list);
+    content.append(&cli_tools);
+    content.append(&debug);
     // the actual window
     let window = ApplicationWindow::builder()
         .title("xf-tweaks")
