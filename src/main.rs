@@ -127,7 +127,7 @@ fn build_ui(app: &Application) {
         .margin_start(12)
         .build();
 
-        let language_list = Label::builder()
+    let language_list = Label::builder()
         .label("Programming language")
         .margin_top(12)
         .margin_bottom(12)
@@ -150,7 +150,8 @@ fn build_ui(app: &Application) {
     // creates a submit button
     let enter = Button::builder().label("debug").build();
 
-    let finished = Button::builder().label("finished").build();
+    let submit_button = Button::builder().label("finished").build();
+
     // cancel buttons
     let cancel = Button::builder().label("Cancel").build();
     cancel.connect_clicked(clone!(@weak window =>move|_| window.close()));
@@ -160,8 +161,8 @@ fn build_ui(app: &Application) {
     let app_list = Box::new(Orientation::Vertical, 2);
     let cli_tools = Box::new(Orientation::Vertical, 2);
     let debug = Box::new(Orientation::Vertical, 2);
-    let apply_cmd = Box::new(Orientation::Vertical,2);
-    let prog_language = Box::new(Orientation::Vertical,2);
+    let apply_cmd = Box::new(Orientation::Vertical, 2);
+    let prog_language = Box::new(Orientation::Vertical, 2);
 
     // adds the buttons to the window
     debug.append(&debug_menu);
@@ -169,7 +170,7 @@ fn build_ui(app: &Application) {
     debug.append(&button);
     debug.append(&enter);
     cli_tools.append(&cli_list);
-    apply_cmd.append(&finished);
+    apply_cmd.append(&submit_button);
     apply_cmd.append(&cancel);
     prog_language.append(&language_list);
 
@@ -186,8 +187,11 @@ fn build_ui(app: &Application) {
         match obj["type"].as_str() {
             Some("application") => app_list.append(&cmd_button),
             Some("utilities") => cli_tools.append(&cmd_button),
-            Some("programming_language") =>  prog_language.append(&cmd_button),
-             _ => println!("error {}",obj["name"])
+            Some("programming_language") => prog_language.append(&cmd_button),
+            _ => println!("error {}", obj["name"]),
+        }
+        {
+            utils::type_of(&cmd_button);
         }
         // app_list.append(&cmd_button);
 
@@ -202,11 +206,36 @@ fn build_ui(app: &Application) {
 
     // enter.connect_clicked(|_| for i in )
 
+    // submit_button.connect_clicked(
+    //     clone!(@weak app_list => move |_|
+    //     for i in &app_list.observe_children(){
+    //         if let Some(check_button) = i.expect("msg").downcast_ref::<CheckButton>() {
+    //             // print!("{}", i.active())
+    //         // println!("{:?}", utils::type_of(&i));
+    //         // utils::type_of(&i);
+    //     }}
+    //     // println!("{:?}", app_list);
+    // ),
+    // );
+    submit_button.connect_clicked(clone!(@weak app_list => move |_| {
+        let app_list = app_list.clone();
+
+        for i in &app_list.observe_children() {
+            if let Some(check_button) = i.expect("ll").downcast_ref::<CheckButton>() {
+                let state = check_button.is_active();
+                if state{
+                // println!("CheckButton state: {}", state);
+                println!("{}", &check_button.label().unwrap().replace('"', ""))
+                }
+            }
+        }
+    }));
+    // adds the list of buttons
     content.append(&app_list);
     content.append(&cli_tools);
-    content.append(&apply_cmd);
-content.append(&prog_language);
+    content.append(&prog_language);
 
+    content.append(&apply_cmd);
     content.append(&debug);
 
     // the actual window
@@ -215,7 +244,6 @@ content.append(&prog_language);
 
     window.show();
 }
-
 
 pub fn run_cmd() {
     // print!("{}", MY_VECTOR.lock().unwrap()[1]);
