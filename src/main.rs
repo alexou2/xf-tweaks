@@ -154,6 +154,8 @@ fn build_ui(app: &Application) {
     for obj in apps::return_json() {
         let cmd_button = CheckButton::builder()
             .label(format!("{}", obj["name"].to_string().replace('"', "")))
+        // .has_tooltip(true)
+        .tooltip_markup(format!("{}", obj["description"].to_string().replace('"', "")))
             .build();
 
         match obj["type"].as_str() {
@@ -161,7 +163,7 @@ fn build_ui(app: &Application) {
             Some("utilities") => cli_tools.append(&cmd_button),
             _ => println!("error creating buttons"),
         }
-        app_list.append(&cmd_button);
+        // app_list.append(&cmd_button);
 
         // action when button is clicked
         // cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
