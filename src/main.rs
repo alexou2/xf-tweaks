@@ -89,9 +89,12 @@ fn main() {
 
     // utils::convert_to_struct()
 
-    app.connect_activate(build_ui);
+    // app.connect_activate(build_ui);
+    json::find_element("ls -a");
     app.run(); // runs the window
 }
+
+
 // create the gtk window
 fn build_ui(app: &Application) {
     // some text
@@ -118,8 +121,9 @@ fn build_ui(app: &Application) {
     // creates a submit button
     let enter = Button::builder().label("submit").build();
     // enter.connect_clicked(move |_| run_cmd());
-    enter.connect_clicked(clone!(@weak button => move |_|if button.is_active()
-    { println!("click"); }
+    enter.connect_clicked(clone!(@weak button => move |_|if button.is_active(){
+        println!("click");
+    }
     )); // button action
 
     // the list of what is in the app
@@ -131,13 +135,13 @@ fn build_ui(app: &Application) {
 
     // loop to create a button for every possible command
     for obj in apps::return_json() {
-        let cmd_button = Button::builder()
-            .label(format!("{}", obj["name"]))
-            .opacity(1.0)
+        let cmd_button = CheckButton::builder()
+            .label(format!("{}", obj["name"].to_string().replace('"', "")))
             .build();
         content.append(&cmd_button);
+        
         // action when button is clicked
-        cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
+        // cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
     }
     // the actual window
     let window = ApplicationWindow::builder()
