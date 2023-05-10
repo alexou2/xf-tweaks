@@ -15,6 +15,13 @@ pub const JSON_DATA: &str = r#"
             "type":"application"
         },
         {
+            "name": "launch nautilus",
+            "command": "nautilus .",
+            "description": "for debug purposes",
+            "needs_sudo": false,
+            "type":"application"
+        },
+        {
             "name": "vs code",
             "command": "sudo apt install code",
             "description": "lightweight code IDE",

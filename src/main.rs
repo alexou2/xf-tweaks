@@ -225,7 +225,9 @@ fn build_ui(app: &Application) {
                 let state = check_button.is_active();
                 if state{
                 // println!("CheckButton state: {}", state);
-                println!("{}", &check_button.label().unwrap().replace('"', ""))
+                println!("{}", &check_button.label().unwrap().replace('"', ""));
+                let command = json::find_element(&check_button.label().unwrap().replace('"', "").to_string());
+                utils::run_command(command.as_str());
                 }
             }
         }
@@ -236,7 +238,7 @@ fn build_ui(app: &Application) {
     content.append(&prog_language);
 
     content.append(&apply_cmd);
-    content.append(&debug);
+    // content.append(&debug);
 
     // the actual window
 
