@@ -96,9 +96,15 @@ fn main() {
 
 // create the gtk window
 fn build_ui(app: &Application) {
+    // the window
+    let window = ApplicationWindow::builder()
+        .title("xf-tweaks")
+        .application(app)
+        .build();
+
     // some text
     let cli_list = Label::builder()
-        .label("command line tools")
+        .label("CLI tools")
         .margin_top(12)
         .margin_bottom(12)
         .margin_end(12)
@@ -121,6 +127,14 @@ fn build_ui(app: &Application) {
         .margin_start(12)
         .build();
 
+        let language_list = Label::builder()
+        .label("Programming language")
+        .margin_top(12)
+        .margin_bottom(12)
+        .margin_end(12)
+        .margin_start(12)
+        .build();
+
     // creates a useless button
     // let button = Button::builder()
     let button = CheckButton::builder()
@@ -134,14 +148,20 @@ fn build_ui(app: &Application) {
     // button.connect_clicked(move |_| println!("opopop")); // button action
 
     // creates a submit button
-    let enter = Button::builder().label("submit").build();
-    // enter.connect_clicked(move |_| run_cmd());
+    let enter = Button::builder().label("debug").build();
+
+    let finished = Button::builder().label("finished").build();
+    // cancel buttons
+    let cancel = Button::builder().label("Cancel").build();
+    cancel.connect_clicked(clone!(@weak window =>move|_| window.close()));
 
     // the list of what is in the app
     let content = Box::new(Orientation::Horizontal, 4);
     let app_list = Box::new(Orientation::Vertical, 2);
     let cli_tools = Box::new(Orientation::Vertical, 2);
     let debug = Box::new(Orientation::Vertical, 2);
+    let apply_cmd = Box::new(Orientation::Vertical,2);
+    let prog_language = Box::new(Orientation::Vertical,2);
 
     // adds the buttons to the window
     debug.append(&debug_menu);
@@ -149,19 +169,25 @@ fn build_ui(app: &Application) {
     debug.append(&button);
     debug.append(&enter);
     cli_tools.append(&cli_list);
+    apply_cmd.append(&finished);
+    apply_cmd.append(&cancel);
+    prog_language.append(&language_list);
 
     // loop to create a button for every possible command
     for obj in apps::return_json() {
         let cmd_button = CheckButton::builder()
             .label(format!("{}", obj["name"].to_string().replace('"', "")))
-        // .has_tooltip(true)
-        .tooltip_markup(format!("{}", obj["description"].to_string().replace('"', "")))
+            .tooltip_markup(format!(
+                "{}",
+                obj["description"].to_string().replace('"', "")
+            ))
             .build();
 
         match obj["type"].as_str() {
             Some("application") => app_list.append(&cmd_button),
             Some("utilities") => cli_tools.append(&cmd_button),
-            _ => println!("error creating buttons"),
+            Some("programming_language") =>  prog_language.append(&cmd_button),
+             _ => println!("error {}",obj["name"])
         }
         // app_list.append(&cmd_button);
 
@@ -178,28 +204,22 @@ fn build_ui(app: &Application) {
 
     content.append(&app_list);
     content.append(&cli_tools);
+    content.append(&apply_cmd);
+content.append(&prog_language);
+
     content.append(&debug);
+
     // the actual window
-    let window = ApplicationWindow::builder()
-        .title("xf-tweaks")
-        .application(app)
-        .child(&content) //uses the buttons/text/ etc... from content
-        .build();
+
+    window.set_child(Some(&content)); //uses the buttons/text/ etc... from content
 
     window.show();
 }
 
-// mod apps;
-
-pub fn add_to_cmd_list(command: Value) {
-    let mut vect = MY_VECTOR.lock().unwrap();
-    vect.push(command);
-    println!("added")
-}
 
 pub fn run_cmd() {
     // print!("{}", MY_VECTOR.lock().unwrap()[1]);
-    let mut commands = MY_VECTOR.lock().unwrap().to_vec();
+    let commands = MY_VECTOR.lock().unwrap().to_vec();
     println!("{}", commands[0]);
 
     // runs every command in the array
