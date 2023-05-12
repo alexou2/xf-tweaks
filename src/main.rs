@@ -241,30 +241,13 @@ fn build_ui(app: &Application) {
 }
 
 pub fn run_cmd(cmd: Vec<Value>) {
-    // print!("{}", MY_VECTOR.lock().unwrap()[1]);
-    // let commands = MY_VECTOR.lock().unwrap().to_vec();
-    // println!("{}", commands[0]);
-    // let command = Value::from_str(&cmd).expect("msg");
-    // // runs every command in the array
-    // // for cmd in &commands {
-    // if command["command"].is_array() {
-    //     println!("true");
-    // } else {
-    //     println!("false");
-    // }
-    // let value = command["command"].to_string().replace('"', "");
-    // // println!("{}", );
-
-    // utils::run_command(value.as_str());
-    // }
-
     for running_command in cmd {
         if running_command.is_array(){
         // println!("{:?}", running_command.as_array().expect("msg").len());
         for i in 0..running_command.as_array().expect("msg").len(){
             // utils::run_command(running_command);
             println!("running {}", running_command[i]);
-            // println!("running");
+            println!("array");
         }
         }else {
             println!("running {}", running_command);
