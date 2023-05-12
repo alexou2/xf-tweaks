@@ -126,7 +126,7 @@ pub fn build_ui(app: &Application) {
 
         for tab in &content.observe_children() {
             if let Some(boxy) = tab.expect("ll").downcast_ref::<Box>() {
-        
+
         let app_list = boxy.clone();
 
         for i in &app_list.observe_children() {
@@ -161,7 +161,4 @@ pub fn build_ui(app: &Application) {
     window.show();
 }
 // auto-checks the boxes for each profile
-fn click_buttons(profile:&str){
-
-
-}
+fn click_buttons(profile: &str) {}

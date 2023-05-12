@@ -1,17 +1,16 @@
 use gtk::prelude::*;
 
 mod apps;
+mod cli_app;
+mod gui_app;
 mod json;
 mod utils;
-mod gui_app;
-mod cli_app;
 // the list of commands that will be executed
 // lazy_static! {
 //     static ref CMD_LIST: Vec<Value> = apps::return_json(); // list all of the commands
 //     static ref command_to_run: Vec<Value> = Vec::new();
 //     static ref MY_VECTOR: Mutex<Vec<Value>> = Mutex::new(Vec::new()); // the list of commands that were selected
 // }
-
 
 // fn on_activate(application: &gtk::Application) {
 //     let provider = CssProvider::new();
@@ -78,11 +77,8 @@ fn main() {
     // Run the application
     // app.run();
 
-
     app.connect_activate(gui_app::build_ui);
     app.run(); // runs the window
-
-
 
     // runs the cli version of the app
 

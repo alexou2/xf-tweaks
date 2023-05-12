@@ -1,10 +1,10 @@
 // a module dedicated to parsing json objects
-use serde_json::{from_str, json, Value};
+use serde_json::{from_str, to_string_pretty, Value};
 
 use crate::{apps, utils};
 // converts a string to json
 pub fn convert_to_json(json_text: &str) -> Value {
-    let json_obj: Value = serde_json::from_str(json_text).expect("JSON was not well-formatted");
+    let json_obj: Value = from_str(json_text).expect("JSON was not well-formatted");
     return json_obj;
 }
 // reads the file and converts it to json directly NOT TO BE USED IN CODE FINAL CODE
@@ -15,7 +15,7 @@ pub fn read_json(file_path: &str) -> Value {
 }
 // prints the json with indentations
 pub fn print_json(json: &Value) {
-    println!("{}", serde_json::to_string_pretty(&json).unwrap());
+    println!("{}", to_string_pretty(&json).unwrap());
 }
 
 // finds the command for the name of the command
@@ -37,10 +37,3 @@ pub fn find_element(element_to_find: &str) -> Vec<Value> {
     // let ret = command;
     return command;
 }
-
-// pub fn find(element_to_find: &str) -> Vec<&Value> {
-//     let json = apps::return_json();
-// let mut comand:Vec<Value> = Vec::new;
-
-//     return comand;
-// }
