@@ -15,8 +15,10 @@ pub const JSON_DATA: &str = r#"
             "type":"application"
         },
         {
-            "name": "launch nautilus",
-            "command": "nautilus .",
+            "name": "node server",
+            "command": [
+                "cd ~/Documents/test-mangaJs",
+            "node index.js -lan"],
             "description": "for debug purposes",
             "needs_sudo": false,
             "type":"application"
@@ -59,7 +61,7 @@ pub const JSON_DATA: &str = r#"
         {
             "name": "lutris",
             "command": "sudo apt install lutris",
-            "description": "play windows games on linux",
+            "description": "play windows games on linux 🦦",
             "needs_sudo": true,
             "type":"application"
         },
@@ -83,7 +85,7 @@ pub const JSON_DATA: &str = r#"
         {
             "name": "python",
             "command": "sudo apt install python3 pip",
-            "description": "the python programming language (installs python, pip)",
+            "description": "the python programming language 🐍(installs python, pip)",
             "needs_sudo": true,
             "type":"programming_language"
         },

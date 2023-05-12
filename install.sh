@@ -21,7 +21,7 @@ for package in ${dependancies[@]}
 
 # confims installation of new package
         read -p "Do you want to install $package? [Y/n] " confirm
-        if [ "$confirm" = "y" ]
+        if [[ "$confirm" = "y" ]]
             then
             sudo apt install $package
         else

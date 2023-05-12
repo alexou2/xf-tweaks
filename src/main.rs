@@ -9,6 +9,7 @@ use gtk::{
 };
 use json::print_json;
 use lazy_static::lazy_static;
+use std::str::FromStr;
 use std::sync::Mutex;
 
 mod apps;
@@ -204,19 +205,6 @@ fn build_ui(app: &Application) {
     }
     )); // button action
 
-    // enter.connect_clicked(|_| for i in )
-
-    // submit_button.connect_clicked(
-    //     clone!(@weak app_list => move |_|
-    //     for i in &app_list.observe_children(){
-    //         if let Some(check_button) = i.expect("msg").downcast_ref::<CheckButton>() {
-    //             // print!("{}", i.active())
-    //         // println!("{:?}", utils::type_of(&i));
-    //         // utils::type_of(&i);
-    //     }}
-    //     // println!("{:?}", app_list);
-    // ),
-    // );
     submit_button.connect_clicked(clone!(@weak app_list => move |_| {
         let app_list = app_list.clone();
 
@@ -225,9 +213,14 @@ fn build_ui(app: &Application) {
                 let state = check_button.is_active();
                 if state{
                 // println!("CheckButton state: {}", state);
-                println!("{}", &check_button.label().unwrap().replace('"', ""));
-                let command = json::find_element(&check_button.label().unwrap().replace('"', "").to_string());
-                utils::run_command(command.as_str());
+                // println!("clicked:{}", &check_button.label().unwrap().replace('"', ""));
+
+                let run = json::find_element(&check_button.label().unwrap());
+                // println!("{:?}", run)
+                run_cmd(run);
+                // let command = json::find_element(&check_button.label().unwrap().replace('"', "").to_string());
+                // utils::run_command(command.as_str());
+                // run_cmd(command);
                 }
             }
         }
@@ -238,7 +231,7 @@ fn build_ui(app: &Application) {
     content.append(&prog_language);
 
     content.append(&apply_cmd);
-    // content.append(&debug);
+    content.append(&debug);
 
     // the actual window
 
@@ -247,21 +240,35 @@ fn build_ui(app: &Application) {
     window.show();
 }
 
-pub fn run_cmd() {
+pub fn run_cmd(cmd: Vec<Value>) {
     // print!("{}", MY_VECTOR.lock().unwrap()[1]);
-    let commands = MY_VECTOR.lock().unwrap().to_vec();
-    println!("{}", commands[0]);
+    // let commands = MY_VECTOR.lock().unwrap().to_vec();
+    // println!("{}", commands[0]);
+    // let command = Value::from_str(&cmd).expect("msg");
+    // // runs every command in the array
+    // // for cmd in &commands {
+    // if command["command"].is_array() {
+    //     println!("true");
+    // } else {
+    //     println!("false");
+    // }
+    // let value = command["command"].to_string().replace('"', "");
+    // // println!("{}", );
 
-    // runs every command in the array
-    for cmd in &commands {
-        if cmd["command"].is_array() {
-            println!("true");
-        } else {
-            println!("false");
+    // utils::run_command(value.as_str());
+    // }
+
+    for running_command in cmd {
+        if running_command.is_array(){
+        // println!("{:?}", running_command.as_array().expect("msg").len());
+        for i in 0..running_command.as_array().expect("msg").len(){
+            // utils::run_command(running_command);
+            println!("running {}", running_command[i]);
+            // println!("running");
         }
-        // let value = cmd["command"].to_string().replace('"', "");
-        // println!("{}", );
-
-        // utils::run_command(value.as_str());
+        }else {
+            println!("running {}", running_command);
+        }
     }
+    // println!("-------------------------------\n\n")
 }

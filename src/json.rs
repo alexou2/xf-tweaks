@@ -1,5 +1,5 @@
 // a module dedicated to parsing json objects
-use serde_json::{from_str, Value};
+use serde_json::{from_str, Value, json};
 
 use crate::{apps, utils};
 // converts a string to json
@@ -19,16 +19,28 @@ pub fn print_json(json: &Value) {
 }
 
 // finds the command for the name of the command
-pub fn find_element(element_to_find: &str) -> String {
+pub fn find_element(element_to_find: &str) -> Vec<Value> {
     let json = apps::return_json();
 
-    let mut command: String = "".to_string();
+    let mut command: Vec<Value> = Vec::new();
+
     for i in 0..json.len() {
         if json[i]["name"] == element_to_find {
-            command = json[i]["command"].to_string().replace('"', "");
+            // let t: &Value = &json[i]["command"];
+            command.push(json[i]["command"].clone());
             break;
         }
+        // else{
+        //     command.push(json!("echo \"error\""));
+        // }
     }
-    println!("{:?}", command);
-    return command;
+// let ret = command;
+    return  command;
 }
+
+// pub fn find(element_to_find: &str) -> Vec<&Value> {
+//     let json = apps::return_json();
+// let mut comand:Vec<Value> = Vec::new;
+
+//     return comand;
+// }
