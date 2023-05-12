@@ -107,9 +107,7 @@ pub fn build_ui(app: &Application) {
             Some("programming_language") => prog_language.append(&cmd_button),
             _ => println!("error {}", obj["name"]),
         }
-        {
-            utils::type_of(&cmd_button);
-        }
+
         // app_list.append(&cmd_button);
 
         // action when button is clicked
@@ -146,6 +144,7 @@ pub fn build_ui(app: &Application) {
             }}}
         }
     }));
+
     // adds the list of buttons
     content.append(&app_list);
     content.append(&cli_tools);

@@ -34,6 +34,5 @@ pub fn find_element(element_to_find: &str) -> Vec<Value> {
         //     command.push(json!("echo \"error\""));
         // }
     }
-    // let ret = command;
     return command;
 }
