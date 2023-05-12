@@ -121,8 +121,13 @@ pub fn build_ui(app: &Application) {
     }
     )); // button action
 
-    submit_button.connect_clicked(clone!(@weak app_list => move |_| {
-        let app_list = app_list.clone();
+    submit_button.connect_clicked(clone!(@weak app_list, @weak content => move |_| {
+        let content = content.clone();
+
+        for tab in &content.observe_children() {
+            if let Some(boxy) = tab.expect("ll").downcast_ref::<Box>() {
+        
+        let app_list = boxy.clone();
 
         for i in &app_list.observe_children() {
             if let Some(check_button) = i.expect("ll").downcast_ref::<CheckButton>() {
@@ -138,7 +143,7 @@ pub fn build_ui(app: &Application) {
                 // utils::run_command(command.as_str());
                 // run_cmd(command);
                 }
-            }
+            }}}
         }
     }));
     // adds the list of buttons

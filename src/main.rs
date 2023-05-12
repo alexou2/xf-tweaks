@@ -1,21 +1,8 @@
-use glib::clone;
-use gtk::gdk::Display;
-use gtk::glib;
 use gtk::prelude::*;
-use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
-use gtk::{
-    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
-    Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
-};
-use json::print_json;
-use lazy_static::lazy_static;
-use std::str::FromStr;
-use std::sync::Mutex;
 
 mod apps;
 mod json;
 mod utils;
-use serde_json::Value;
 
 // the list of commands that will be executed
 // lazy_static! {
@@ -89,12 +76,7 @@ fn main() {
     // Run the application
     // app.run();
 
-    // utils::convert_to_struct()
 
     app.connect_activate(gui_app::build_ui);
-    // json::find_element("ls -a");
     app.run(); // runs the window
 }
-
-
-
