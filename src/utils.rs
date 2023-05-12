@@ -5,6 +5,7 @@ use std::fs::read_to_string;
 use std::fs::File;
 use std::io::Write;
 use std::process::Command;
+use serde_json::Value;
 
 // executes a bash command with arguments
 pub fn run_command(command_to_run: &str) {
@@ -40,4 +41,20 @@ pub fn write_file(buffer: String, target_file: &str) -> std::io::Result<()> {
     write!(file, "{}", buffer).expect("msg");
 
     Ok(())
+}
+pub fn split_command(cmd: Vec<Value>) {
+    for running_command in cmd {
+        if running_command.is_array(){
+        // println!("{:?}", running_command.as_array().expect("msg").len());
+        for i in 0..running_command.as_array().expect("msg").len(){
+            // run_command(running_command[i]);
+            println!("running {}", running_command[i]);
+            println!("array");
+        }
+        }else {
+            println!("running {}", running_command);
+            // run_command(running_command);
+        }
+    }
+    // println!("-------------------------------\n\n")
 }

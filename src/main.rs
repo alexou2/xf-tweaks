@@ -23,7 +23,7 @@ use serde_json::Value;
 //     static ref command_to_run: Vec<Value> = Vec::new();
 //     static ref MY_VECTOR: Mutex<Vec<Value>> = Mutex::new(Vec::new()); // the list of commands that were selected
 // }
-mod gui_app::build_ui;
+mod gui_app;
 
 // fn on_activate(application: &gtk::Application) {
 //     let provider = CssProvider::new();
@@ -91,25 +91,10 @@ fn main() {
 
     // utils::convert_to_struct()
 
-    app.connect_activate(build_ui);
+    app.connect_activate(gui_app::build_ui);
     // json::find_element("ls -a");
     app.run(); // runs the window
 }
 
 
 
-pub fn run_cmd(cmd: Vec<Value>) {
-    for running_command in cmd {
-        if running_command.is_array(){
-        // println!("{:?}", running_command.as_array().expect("msg").len());
-        for i in 0..running_command.as_array().expect("msg").len(){
-            // utils::run_command(running_command);
-            println!("running {}", running_command[i]);
-            println!("array");
-        }
-        }else {
-            println!("running {}", running_command);
-        }
-    }
-    // println!("-------------------------------\n\n")
-}

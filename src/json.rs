@@ -1,5 +1,5 @@
 // a module dedicated to parsing json objects
-use serde_json::{from_str, Value, json};
+use serde_json::{from_str, json, Value};
 
 use crate::{apps, utils};
 // converts a string to json
@@ -34,8 +34,8 @@ pub fn find_element(element_to_find: &str) -> Vec<Value> {
         //     command.push(json!("echo \"error\""));
         // }
     }
-// let ret = command;
-    return  command;
+    // let ret = command;
+    return command;
 }
 
 // pub fn find(element_to_find: &str) -> Vec<&Value> {

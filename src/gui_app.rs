@@ -1,3 +1,16 @@
+use crate::apps;
+use crate::json;
+use crate::utils;
+use glib::clone;
+use gtk::gdk::Display;
+use gtk::glib;
+use gtk::prelude::*;
+use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
+use gtk::{
+    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
+    Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
+};
+
 // create the gtk window
 pub fn build_ui(app: &Application) {
     // the window
@@ -120,7 +133,7 @@ pub fn build_ui(app: &Application) {
 
                 let run = json::find_element(&check_button.label().unwrap());
                 // println!("{:?}", run)
-                run_cmd(run);
+                utils::split_command(run);
                 // let command = json::find_element(&check_button.label().unwrap().replace('"', "").to_string());
                 // utils::run_command(command.as_str());
                 // run_cmd(command);
