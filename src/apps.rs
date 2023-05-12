@@ -166,3 +166,32 @@ pub fn return_json() -> Vec<Value> {
     }
     return json_list;
 }
+pub const PROFILES: &str = r#"
+{
+    "server": [
+        "htop",
+        "openssh server",
+        "virt-manager"
+    ],
+    "gaming": [
+        "lutris"
+    ],
+    "programming": [
+        "rust",
+        "python",
+        "vs code",
+        "kate",
+        "nodejs"
+    ],
+    "laptop": [
+        "tlp"
+    ],
+    "useful_tools":[
+        "nautilus",
+        "vlc",
+        "tree",
+        "neofetch",
+        "lutris"
+    ]
+}
+"#;

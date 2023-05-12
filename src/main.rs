@@ -3,14 +3,15 @@ use gtk::prelude::*;
 mod apps;
 mod json;
 mod utils;
-
+mod gui_app;
+mod cli_app;
 // the list of commands that will be executed
 // lazy_static! {
 //     static ref CMD_LIST: Vec<Value> = apps::return_json(); // list all of the commands
 //     static ref command_to_run: Vec<Value> = Vec::new();
 //     static ref MY_VECTOR: Mutex<Vec<Value>> = Mutex::new(Vec::new()); // the list of commands that were selected
 // }
-mod gui_app;
+
 
 // fn on_activate(application: &gtk::Application) {
 //     let provider = CssProvider::new();
@@ -67,6 +68,7 @@ mod gui_app;
 // }
 
 fn main() {
+    // creates the gui version of the app
     // Create a new application with the builder pattern
     let app = gtk::Application::builder()
         // .application_id("com.github.gtk-rs.examples.basic")
@@ -79,4 +81,10 @@ fn main() {
 
     app.connect_activate(gui_app::build_ui);
     app.run(); // runs the window
+
+
+
+    // runs the cli version of the app
+
+    cli_app::cli_home();
 }

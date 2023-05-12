@@ -160,3 +160,8 @@ pub fn build_ui(app: &Application) {
 
     window.show();
 }
+// auto-checks the boxes for each profile
+fn click_buttons(profile:&str){
+
+
+}
