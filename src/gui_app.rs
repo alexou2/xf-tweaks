@@ -1,16 +1,16 @@
 use crate::apps;
 use crate::json;
 use crate::utils;
+use gio::prelude::*;
 use glib::clone;
-use gtk::gdk::Display;
+use gtk::gdk_pixbuf::Pixbuf;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
 use gtk::{
-    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
-    Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
+    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry,
+    Label, Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
-
 // create the gtk window
 pub fn build_ui(app: &Application) {
     // the window
@@ -107,11 +107,6 @@ pub fn build_ui(app: &Application) {
             Some("programming_language") => prog_language.append(&cmd_button),
             _ => println!("error {}", obj["name"]),
         }
-
-        // app_list.append(&cmd_button);
-
-        // action when button is clicked
-        // cmd_button.connect_clicked(move |_| add_to_cmd_list(obj.clone()));
     }
 
     enter.connect_clicked(clone!(@weak button => move |_|if button.is_active(){

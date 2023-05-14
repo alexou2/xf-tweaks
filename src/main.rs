@@ -65,8 +65,15 @@ mod utils;
 //     window.set_child(Some(&container));
 //     window.present();
 // }
+// use winres::WindowsResource;
 
 fn main() {
+    // WindowsResource::new()
+    // .set_icon("/home/alexou/xf-tweaks/icon2.png")
+    // .compile()
+    // .unwrap();
+    
+
     // creates the gui version of the app
     // Create a new application with the builder pattern
     let app = gtk::Application::builder()

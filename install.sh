@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # list of dependancies to install
-dependancies=("libgtk-4-1" "xfce4" "lightdm" "git")
+dependancies=("xfce4" "lightdm" "git")
 
 
 # update repositories

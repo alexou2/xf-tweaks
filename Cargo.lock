@@ -758,6 +758,7 @@ dependencies = [
 name = "xf-tweaks"
 version = "0.1.0"
 dependencies = [
+ "gio",
  "gtk4",
  "lazy_static",
  "serde_json",
