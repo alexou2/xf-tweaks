@@ -6,7 +6,6 @@ mod gui_app;
 mod json;
 mod utils;
 
-
 // fn on_activate(application: &gtk::Application) {
 //     let provider = CssProvider::new();
 //     provider.load_from_data(include_str!("style.css"));
@@ -63,22 +62,9 @@ mod utils;
 // use winres::WindowsResource;
 
 fn main() {
-    // WindowsResource::new()
-    // .set_icon("/home/alexou/xf-tweaks/icon2.png")
-    // .compile()
-    // .unwrap();
-    
-
-    // creates the gui version of the app
-    // Create a new application with the builder pattern
     let app = gtk::Application::builder()
-        // .application_id("com.github.gtk-rs.examples.basic")
         .application_id("xf-tweaks")
         .build();
-    // app.connect_activate(on_activate);
-    // Run the application
-    // app.run();
-
     app.connect_activate(gui_app::build_ui);
     app.run(); // runs the window
 

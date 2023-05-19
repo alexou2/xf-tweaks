@@ -8,6 +8,13 @@ pub const JSON_DATA: &str = r#"
 {
     "applications": [
         {
+            "name": "firefox",
+            "command": "sudo apt install firefox",
+            "description": "an open source browser",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
             "name": "nautilus",
             "command": "sudo apt install nautilus",
             "description": "the default gnome file manager",
@@ -48,6 +55,27 @@ pub const JSON_DATA: &str = r#"
             "name": "chromium",
             "command": "sudo apt install chromium-browser",
             "description": "the open-source base of chrome and ms edge",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
+            "name": "kde connect",
+            "command": "sudo apt install kdeconnect",
+            "description": "control your pc from your phone",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
+            "name": "byobu terminal",
+            "command": "sudo apt install byobu",
+            "description": "a light, powerfull terminal emulator",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
+            "name": "thunderbird mail",
+            "command": "sudo apt install thunderbird",
+            "description": "an open source mail client",
             "needs_sudo": true,
             "type":"application"
         },
@@ -128,30 +156,59 @@ pub const JSON_DATA: &str = r#"
             "needs_sudo": true,
             "type":"tweak"
         },
+    ],
+    "desktop_environment":[
         {
-            "name": "ls -a",
-            "command": "ls",
-            "description": "lists files",
-            "needs_sudo": false,
-            "type":"debug"
+            "name": "gnome full",
+            "command": "sudo apt install gnome-shell",
+            "description": "the fully featured version of the gnome DE",
+            "needs_sudo": true,
+            "type":"de"
         },
         {
-            "name": "pwd",
-            "command": "pwd",
-            "description": "pwd",
-            "needs_sudo": false,
-            "type":"debug"
+            "name": "gnome minimal",
+            "command": "sudo apt install gnome-session",
+            "description": "a lightweght version of gnome (with ubuntu tewaks)",
+            "needs_sudo": true,
+            "type":"de"
         },
         {
-            "name": "test_arr",
-            "command": [
-                "clear",
-                "touch succes.txt"
-            ],
-            "description": "pwd",
-            "needs_sudo": false,
-            "type":"debug"
-        }
+            "name": "kde minimal",
+            "command": "sudo apt install kde-plasma-desktop",
+            "description": "a highly customizable desktop environment",
+            "needs_sudo": true,
+            "type":"de"
+        },
+        {
+            "name": "xfce",
+            "command": "sudo apt install xfce4",
+            "description": "a lightweight DE",
+            "needs_sudo": true,
+            "type":"de"
+        },
+    ],
+    "display_manager":[
+        {
+            "name": "gdm3",
+            "command": "sudo apt install lightdm",
+            "description": "the default login screen of gnome",
+            "needs_sudo": true,
+            "type":"de"
+        },
+        {
+            "name": "lightdm",
+            "command": "sudo apt install lightdm",
+            "description": "the default login screen of xfce",
+            "needs_sudo": true,
+            "type":"de"
+        },
+        {
+            "name": "sddm",
+            "command": "sudo apt install sddm",
+            "description": "the default login screen of kde",
+            "needs_sudo": true,
+            "type":"de"
+        },
     ]
 }
 "#;

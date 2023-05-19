@@ -1,0 +1,5 @@
+sudo apt install ubuntu-desktop-minimal
+sudo apt install byobu    #a powerfull terminal console
+sudo apt install thunderbird
+sudo apt install kdeconnect
+
