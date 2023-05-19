@@ -73,7 +73,7 @@ pub const JSON_DATA: &str = r#"
             "type":"application"
         },
         {
-            "name": "thunderbird mail",
+            "name": "thunderbird",
             "command": "sudo apt install thunderbird",
             "description": "an open source mail client",
             "needs_sudo": true,
@@ -94,9 +94,30 @@ pub const JSON_DATA: &str = r#"
             "type":"application"
         },
         {
+            "name": "evince",
+            "command": "sudo apt install evince",
+            "description": "a document viewer that supports many formats",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
+            "name": "obs",
+            "command": "sudo apt install obs-studio",
+            "description": "record your gameplay",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
+            "name": "openrgb",
+            "command": "sudo apt install openrgb",
+            "description": "control all rgb devices with one software",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
             "name": "rust",
             "command": "sudo apt install cargo",
-            "description": "the rust programming language",
+            "description": "the rust programming language🦀",
             "needs_sudo": true,
             "type":"programming_language"
         },
@@ -231,14 +252,17 @@ pub const PROFILES: &str = r#"
         "virt-manager"
     ],
     "gaming": [
-        "lutris"
+        "lutris",
+        "obs",
+        "openrgb"
     ],
     "programming": [
         "rust",
         "python",
         "vs code",
         "kate",
-        "nodejs"
+        "nodejs", 
+        "virt-manager"
     ],
     "laptop": [
         "tlp"
@@ -258,7 +282,12 @@ pub const PROFILES: &str = r#"
         "lutris",
         "thunderbird", 
         "kde connect",
-        "virt-manager"
+        "virt-manager", 
+        "lutris",
+        "vs code",
+        "kate",
+        "byobu terminal", 
+        "evince"
     ]
 }
 "#;
