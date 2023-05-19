@@ -155,7 +155,7 @@ pub const JSON_DATA: &str = r#"
             "description": "enables remote logging into the pc",
             "needs_sudo": true,
             "type":"tweak"
-        },
+        }
     ],
     "desktop_environment":[
         {
@@ -185,7 +185,7 @@ pub const JSON_DATA: &str = r#"
             "description": "a lightweight DE",
             "needs_sudo": true,
             "type":"de"
-        },
+        }
     ],
     "display_manager":[
         {
@@ -208,17 +208,17 @@ pub const JSON_DATA: &str = r#"
             "description": "the default login screen of kde",
             "needs_sudo": true,
             "type":"de"
-        },
+        }
     ]
 }
 "#;
 
 // returns the json obj as a vec of Value (array of json objects)
-pub fn return_json() -> Vec<Value> {
+pub fn return_json(element: &str) -> Vec<Value> {
     let json_data: Value = from_str(JSON_DATA).expect("error parsing json");
     let mut json_list: Vec<Value> = Vec::new();
 
-    for item in json_data["applications"].as_array().unwrap() {
+    for item in json_data[element].as_array().unwrap() {
         json_list.push(item.clone());
     }
     return json_list;
@@ -249,6 +249,16 @@ pub const PROFILES: &str = r#"
         "tree",
         "neofetch",
         "lutris"
+    ],
+    "recommended":[
+        "nautilus",
+        "vlc",
+        "tree",
+        "neofetch",
+        "lutris",
+        "thunderbird", 
+        "kde connect",
+        "virt-manager"
     ]
 }
 "#;

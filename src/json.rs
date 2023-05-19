@@ -19,8 +19,8 @@ pub fn print_json(json: &Value) {
 }
 
 // finds the command for the name of the command
-pub fn find_element(element_to_find: &str) -> Vec<Value> {
-    let json = apps::return_json();
+pub fn find_element(element_to_find: &str, attribute: &str) -> Vec<Value> {
+    let json = apps::return_json(attribute);
 
     let mut command: Vec<Value> = Vec::new();
 

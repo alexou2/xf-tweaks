@@ -3,13 +3,15 @@ use crate::json;
 use crate::utils;
 use gio::prelude::*;
 use glib::clone;
+use gtk::builders::NotebookBuilder;
 use gtk::gdk_pixbuf::Pixbuf;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
+use gtk::NotebookTab;
 use gtk::{
-    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry,
-    Label, Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
+    Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
+    Notebook, Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
 // create the gtk window
 pub fn build_ui(app: &Application) {
@@ -92,7 +94,7 @@ pub fn build_ui(app: &Application) {
     prog_language.append(&language_list);
 
     // loop to create a button for every possible command
-    for obj in apps::return_json() {
+    for obj in apps::return_json("applications") {
         let cmd_button = CheckButton::builder()
             .label(format!("{}", obj["name"].to_string().replace('"', "")))
             .tooltip_markup(format!(
@@ -129,7 +131,7 @@ pub fn build_ui(app: &Application) {
                 // println!("CheckButton state: {}", state);
                 // println!("clicked:{}", &check_button.label().unwrap().replace('"', ""));
 
-                let run = json::find_element(&check_button.label().unwrap());
+                let run = json::find_element(&check_button.label().unwrap(), "applications");
                 // println!("{:?}", run)
                 utils::split_command(run);
                 // let command = json::find_element(&check_button.label().unwrap().replace('"', "").to_string());
@@ -148,11 +150,28 @@ pub fn build_ui(app: &Application) {
     content.append(&apply_cmd);
     content.append(&debug);
 
-    // the actual window
+    // content.append(&create_display_tab());
 
     window.set_child(Some(&content)); //uses the buttons/text/ etc... from content
 
     window.show();
 }
+
+
+// returns the tab to install a desktop environment/ display manager
+fn create_display_tab() -> Notebook {
+    let tab = Notebook::builder().build();
+    let label: Label = Label::builder().label("txt").build();
+    let label2 = Label::builder().label("txt").build();
+    // tab.append_page(Some(label), Some("lab"));
+    let content = Box::new(Orientation::Vertical, 2);
+    content.append(&label);
+    
+    tab.append_page(&content, Some(&label2));
+    tab.append_page(&content, Some(&label2));
+
+    return tab;
+}
+
 // auto-checks the boxes for each profile
 fn click_buttons(profile: &str) {}
