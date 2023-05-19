@@ -281,7 +281,6 @@ pub const PROFILES: &str = r#"
         "neofetch",
         "lutris",
         "thunderbird", 
-        "kde connect",
         "virt-manager", 
         "lutris",
         "vs code",
