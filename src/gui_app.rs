@@ -153,8 +153,14 @@ pub fn build_ui(app: &Application) {
     content.append(&apply_cmd);
     // content.append(&debug);
 
-    let main_label = Label::builder().label("Applications").tooltip_markup("Install any apps").build();
-    let display_label = Label::builder().label("Display options").tooltip_markup("Customize the display options").build();
+    let main_label = Label::builder()
+        .label("Applications")
+        .tooltip_markup("Install any apps")
+        .build();
+    let display_label = Label::builder()
+        .label("Display options")
+        .tooltip_markup("Customize the display options")
+        .build();
     let theme_label = Label::builder().label("System theme").tooltip_markup("Change the look and feel of your os\n⚠This will change entirely how the gui will behave").build();
 
     notebook.append_page(&create_main_tab(), Some(&main_label));
@@ -377,24 +383,4 @@ fn system_theme() -> Box {
 // auto-checks the boxes for each profile
 fn click_buttons(profile: &str) {}
 
-// adds the requested items to the gtk::box
-fn add_to_box(type_requested: &str, menu: Box, apps_list: Vec<Value>) -> Box {
-    for obj in apps_list {
-        let cmd_button = CheckButton::builder()
-            .label(format!("{}", obj["name"].to_string().replace('"', "")))
-            .tooltip_markup(format!(
-                "{}",
-                obj["description"].to_string().replace('"', "")
-            ))
-            .build();
-
-        match obj["type"].as_str() {
-            // Some(&type_requested) => menu.append(obj)
-            Some(_type_requested) => menu.append(&cmd_button),
-            _ => println!("error {}", obj["name"]),
-        }
-    // println!("{}", type_requested);
-    }
-println!("{:?}", menu);
-    return menu;
-}
+fn uncheck_box(content: Notebook) {}
