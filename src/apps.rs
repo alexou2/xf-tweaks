@@ -178,7 +178,7 @@ pub const JSON_DATA: &str = r#"
             "type":"tweak"
         }
     ],
-    "desktop_environment":[
+    "theme":[
         {
             "name": "gnome full",
             "command": "sudo apt install gnome-shell",
@@ -206,29 +206,27 @@ pub const JSON_DATA: &str = r#"
             "description": "a lightweight DE",
             "needs_sudo": true,
             "type":"de"
-        }
-    ],
-    "display_manager":[
+        },
         {
             "name": "gdm3",
             "command": "sudo apt install lightdm",
             "description": "the default login screen of gnome",
             "needs_sudo": true,
-            "type":"de"
+            "type":"dm"
         },
         {
             "name": "lightdm",
             "command": "sudo apt install lightdm",
             "description": "the default login screen of xfce",
             "needs_sudo": true,
-            "type":"de"
+            "type":"dm"
         },
         {
             "name": "sddm",
             "command": "sudo apt install sddm",
             "description": "the default login screen of kde",
             "needs_sudo": true,
-            "type":"de"
+            "type":"dm"
         }
     ]
 }

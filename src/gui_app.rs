@@ -14,7 +14,9 @@ use gtk::{
     Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
     Notebook, Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
+use serde_json::Value;
 // create the gtk window
+
 pub fn build_ui(app: &Application) {
     // the window
     let window = ApplicationWindow::builder()
@@ -23,37 +25,37 @@ pub fn build_ui(app: &Application) {
         .build();
 
     // some text
-    let cli_list = Label::builder()
-        .label("CLI tools")
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_end(12)
-        .margin_start(12)
-        .build();
+    // let cli_list = Label::builder()
+    //     .label("CLI tools")
+    //     .margin_top(12)
+    //     .margin_bottom(12)
+    //     .margin_end(12)
+    //     .margin_start(12)
+    //     .build();
 
-    let app_label = Label::builder()
-        .label("Applications")
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_end(12)
-        .margin_start(12)
-        .build();
+    // let app_label = Label::builder()
+    //     .label("Applications")
+    //     .margin_top(12)
+    //     .margin_bottom(12)
+    //     .margin_end(12)
+    //     .margin_start(12)
+    //     .build();
 
-    let debug_menu = Label::builder()
-        .label("Debug options")
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_end(12)
-        .margin_start(12)
-        .build();
+    // let debug_menu = Label::builder()
+    //     .label("Debug options")
+    //     .margin_top(12)
+    //     .margin_bottom(12)
+    //     .margin_end(12)
+    //     .margin_start(12)
+    //     .build();
 
-    let language_list = Label::builder()
-        .label("Programming language")
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_end(12)
-        .margin_start(12)
-        .build();
+    // let language_list = Label::builder()
+    //     .label("Programming language")
+    //     .margin_top(12)
+    //     .margin_bottom(12)
+    //     .margin_end(12)
+    //     .margin_start(12)
+    //     .build();
 
     // creates a useless button
     // let button = Button::builder()
@@ -79,38 +81,38 @@ pub fn build_ui(app: &Application) {
     // the list of what is in the app
     let content = Box::new(Orientation::Horizontal, 4);
     let app_list = Box::new(Orientation::Vertical, 2);
-    let cli_tools = Box::new(Orientation::Vertical, 2);
-    let debug = Box::new(Orientation::Vertical, 2);
+    // let cli_tools = Box::new(Orientation::Vertical, 2);
+    // let debug = Box::new(Orientation::Vertical, 2);
     let apply_cmd = Box::new(Orientation::Vertical, 2);
-    let prog_language = Box::new(Orientation::Vertical, 2);
+    // let prog_language = Box::new(Orientation::Vertical, 2);
 
     // adds the buttons to the window
-    debug.append(&debug_menu);
-    app_list.append(&app_label);
-    debug.append(&button);
-    debug.append(&enter);
-    cli_tools.append(&cli_list);
+    // debug.append(&debug_menu);
+    // app_list.append(&app_label);
+    // debug.append(&button);
+    apply_cmd.append(&enter);
+    // cli_tools.append(&cli_list);
     apply_cmd.append(&submit_button);
     apply_cmd.append(&cancel);
-    prog_language.append(&language_list);
+    // prog_language.append(&language_list);
 
     // loop to create a button for every possible command
-    for obj in apps::return_json("applications") {
-        let cmd_button = CheckButton::builder()
-            .label(format!("{}", obj["name"].to_string().replace('"', "")))
-            .tooltip_markup(format!(
-                "{}",
-                obj["description"].to_string().replace('"', "")
-            ))
-            .build();
+    // for obj in apps::return_json("applications") {
+    //     let cmd_button = CheckButton::builder()
+    //         .label(format!("{}", obj["name"].to_string().replace('"', "")))
+    //         .tooltip_markup(format!(
+    //             "{}",
+    //             obj["description"].to_string().replace('"', "")
+    //         ))
+    //         .build();
 
-        match obj["type"].as_str() {
-            Some("application") => app_list.append(&cmd_button),
-            Some("utilities") => cli_tools.append(&cmd_button),
-            Some("programming_language") => prog_language.append(&cmd_button),
-            _ => println!("error {}", obj["name"]),
-        }
-    }
+    //     match obj["type"].as_str() {
+    //         Some("application") => app_list.append(&cmd_button),
+    //         Some("utilities") => cli_tools.append(&cmd_button),
+    //         Some("programming_language") => prog_language.append(&cmd_button),
+    //         _ => println!("error {}", obj["name"]),
+    //     }
+    // }
 
     enter.connect_clicked(clone!(@weak button => move |_|if button.is_active(){
         println!("click");
@@ -149,13 +151,15 @@ pub fn build_ui(app: &Application) {
     // content.append(&prog_language);
     content.append(&notebook);
     content.append(&apply_cmd);
-    content.append(&debug);
+    // content.append(&debug);
 
-    let main_label = Label::builder().label("applications").build();
-    let display_label = Label::builder().label("display options").build();
+    let main_label = Label::builder().label("Applications").build();
+    let display_label = Label::builder().label("Display options").build();
+    let theme_label = Label::builder().label("System theme").build();
 
     notebook.append_page(&create_main_tab(), Some(&main_label));
     notebook.append_page(&create_display_tab(), Some(&display_label));
+    notebook.append_page(&system_theme(), Some(&theme_label));
 
     enter.connect_clicked(clone!(@weak notebook => move |_|
         for page_num in 0..notebook.n_pages() {
@@ -165,17 +169,18 @@ pub fn build_ui(app: &Application) {
                 for i in &box_container.observe_children() {
                 if let Some(check_button) = i.expect("ll").downcast_ref::<Box>() {
 
-                   for button in &check_button.observe_children(){
-                    if let Some(check) = button.expect("ll").downcast_ref::<CheckButton>() {
+                    for button in &check_button.observe_children(){
+                        if let Some(check) = button.expect("ll").downcast_ref::<CheckButton>() {
 
-                    let state = check.is_active();
-                    if state{
+                            let state = check.is_active();
+                            if state{
 
-                        println!("true")
-                    }else {
-                        println!("false")
+                            println!("true")
+                            }else {
+                                println!("false")
+                            }
+                        }
                     }
-                }}
                 }
                 // type_of(&box_container);
             }
@@ -207,7 +212,7 @@ fn create_display_tab() -> Box {
 }
 
 fn create_main_tab() -> Box {
-    let notebook = Notebook::new();
+    // let notebook = Notebook::new();
 
     let cli_list = Label::builder()
         .label("CLI tools")
@@ -225,13 +230,13 @@ fn create_main_tab() -> Box {
         .margin_start(12)
         .build();
 
-    let debug_menu = Label::builder()
-        .label("Debug options")
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_end(12)
-        .margin_start(12)
-        .build();
+    // let debug_menu = Label::builder()
+    //     .label("Debug options")
+    //     .margin_top(12)
+    //     .margin_bottom(12)
+    //     .margin_end(12)
+    //     .margin_start(12)
+    //     .build();
 
     let language_list = Label::builder()
         .label("Programming language")
@@ -264,16 +269,16 @@ fn create_main_tab() -> Box {
     let app_list = Box::new(Orientation::Vertical, 2);
     let cli_tools = Box::new(Orientation::Vertical, 2);
     let debug = Box::new(Orientation::Vertical, 2);
-    let apply_cmd = Box::new(Orientation::Vertical, 2);
+    // let apply_cmd = Box::new(Orientation::Vertical, 2);
     let prog_language = Box::new(Orientation::Vertical, 2);
 
     // adds the buttons to the window
-    debug.append(&debug_menu);
+    // debug.append(&debug_menu);
     app_list.append(&app_label);
     debug.append(&button);
     debug.append(&enter);
     cli_tools.append(&cli_list);
-    apply_cmd.append(&submit_button);
+    // apply_cmd.append(&submit_button);
     prog_language.append(&language_list);
 
     // loop to create a button for every possible command
@@ -329,7 +334,7 @@ fn create_main_tab() -> Box {
     content.append(&cli_tools);
     content.append(&prog_language);
 
-    content.append(&apply_cmd);
+    // content.append(&apply_cmd);
     // content.append(&debug);
 
     // let label = Label::builder().label("display options").build();
@@ -337,5 +342,59 @@ fn create_main_tab() -> Box {
     return content;
 }
 
+fn system_theme() -> Box {
+    let content = Box::new(Orientation::Horizontal, 4); // main box for the page
+    let dm_list = Box::new(Orientation::Vertical, 2); //list of lock screen
+    let de_list = Box::new(Orientation::Vertical, 2); // list of system theme
+
+    let dm_label = Label::builder().label("Lock screen theme").build();
+    let de_label = Label::builder().label("System theme").build();
+
+    dm_list.append(&dm_label);
+    de_list.append(&de_label);
+
+    for obj in apps::return_json("theme") {
+        let cmd_button = CheckButton::builder()
+            .label(format!("{}", obj["name"].to_string().replace('"', "")))
+            .tooltip_markup(format!(
+                "{}",
+                obj["description"].to_string().replace('"', "")
+            ))
+            .build();
+
+        match obj["type"].as_str() {
+            Some("dm") => dm_list.append(&cmd_button),
+            Some("de") => de_list.append(&cmd_button),
+            _ => println!("error {}", obj["name"]),
+        }
+    }
+
+    content.append(&dm_list);
+    content.append(&de_list);
+    return content;
+}
+
 // auto-checks the boxes for each profile
 fn click_buttons(profile: &str) {}
+
+// adds the requested items to the gtk::box
+fn add_to_box(type_requested: &str, menu: Box, apps_list: Vec<Value>) -> Box {
+    for obj in apps_list {
+        let cmd_button = CheckButton::builder()
+            .label(format!("{}", obj["name"].to_string().replace('"', "")))
+            .tooltip_markup(format!(
+                "{}",
+                obj["description"].to_string().replace('"', "")
+            ))
+            .build();
+
+        match obj["type"].as_str() {
+            // Some(&type_requested) => menu.append(obj)
+            Some(_type_requested) => menu.append(&cmd_button),
+            _ => println!("error {}", obj["name"]),
+        }
+    // println!("{}", type_requested);
+    }
+println!("{:?}", menu);
+    return menu;
+}
