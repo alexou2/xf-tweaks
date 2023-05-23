@@ -25,7 +25,7 @@ pub fn run_command(command_to_run: &str) {
 
 // equivalent of typeOf()
 pub fn type_of<T>(_: &T) -> String {
-    let type_of_var = format!("{}", std::any::type_name::<T>());
+    let type_of_var = std::any::type_name::<T>().to_string();
     println!("{}", &type_of_var);
     return type_of_var;
 }
@@ -52,7 +52,7 @@ pub fn split_command(cmd: Vec<Value>) {
             }
         } else {
             println!("running {}", running_command);
-            // run_command(running_command);
+            run_command(running_command.to_string().replace('"', "").as_str());
         }
     }
     // println!("-------------------------------\n\n")

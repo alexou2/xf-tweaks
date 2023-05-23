@@ -176,9 +176,7 @@ pub const JSON_DATA: &str = r#"
             "description": "enables remote logging into the pc",
             "needs_sudo": true,
             "type":"tweak"
-        }
-    ],
-    "theme":[
+        },
         {
             "name": "gnome full",
             "command": "sudo apt install gnome-shell",
@@ -227,6 +225,13 @@ pub const JSON_DATA: &str = r#"
             "description": "the default login screen of kde",
             "needs_sudo": true,
             "type":"dm"
+        },
+        {
+            "name": "open files",
+            "command": "nautilus .",
+            "description": "the default login screen of kde",
+            "needs_sudo": true,
+            "type":"debug"
         }
     ]
 }
