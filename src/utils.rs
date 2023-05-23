@@ -17,6 +17,7 @@ pub fn run_command(command_to_run: &str) {
     // the output of the command
     let output = Command::new(command)
         .args(args)
+        .arg("-y")
         .output()
         .expect("Failed to execute command");
 
