@@ -153,9 +153,9 @@ pub fn build_ui(app: &Application) {
     content.append(&apply_cmd);
     // content.append(&debug);
 
-    let main_label = Label::builder().label("Applications").build();
-    let display_label = Label::builder().label("Display options").build();
-    let theme_label = Label::builder().label("System theme").build();
+    let main_label = Label::builder().label("Applications").tooltip_markup("Install any apps").build();
+    let display_label = Label::builder().label("Display options").tooltip_markup("Customize the display options").build();
+    let theme_label = Label::builder().label("System theme").tooltip_markup("Change the look and feel of your os\n⚠This will change entirely how the gui will behave").build();
 
     notebook.append_page(&create_main_tab(), Some(&main_label));
     notebook.append_page(&create_display_tab(), Some(&display_label));
