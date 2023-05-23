@@ -4,17 +4,13 @@ use crate::utils;
 use crate::utils::type_of;
 use gio::prelude::*;
 use glib::clone;
-use gtk::builders::NotebookBuilder;
-use gtk::gdk_pixbuf::Pixbuf;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::traits::{ButtonExt, GtkWindowExt, WidgetExt};
-use gtk::NotebookTab;
 use gtk::{
     Application, ApplicationWindow, Box, Button, CheckButton, CssProvider, DropDown, Entry, Label,
     Notebook, Orientation, StyleContext, STYLE_PROVIDER_PRIORITY_APPLICATION,
 };
-use serde_json::Value;
 // create the gtk window
 
 pub fn build_ui(app: &Application) {
@@ -119,16 +115,17 @@ pub fn build_ui(app: &Application) {
     }
     )); // button action
 
-    submit_button.connect_clicked(clone!(@weak app_list, @weak content => move |_| {
+    submit_button.connect_clicked(
+        clone!(@weak app_list, @weak content => move |_| {
             let content = content.clone();
 
             for tab in &content.observe_children() {
                 if let Some(boxy) = tab.expect("ll").downcast_ref::<Box>() {
 
-            let app_list = boxy.clone();
-    type_of(&app_list);
-            for i in &app_list.observe_children() {
-                if let Some(check_button) = i.expect("ll").downcast_ref::<CheckButton>() {
+                let app_list = boxy.clone();
+                type_of(&app_list);
+                for i in &app_list.observe_children() {
+                    if let Some(check_button) = i.expect("ll").downcast_ref::<CheckButton>() {
                     let state = check_button.is_active();
                     if state{
                     // println!("CheckButton state: {}", state);
@@ -141,14 +138,15 @@ pub fn build_ui(app: &Application) {
                     // utils::run_command(command.as_str());
                     // run_cmd(command);
                     }
-                }}}
+                }
             }
-        }));
+        }
+    }
+}
+)
+    );
+    // content of the page
     let notebook = Notebook::new();
-    // adds the list of buttons
-    // content.append(&app_list);
-    // content.append(&cli_tools);
-    // content.append(&prog_language);
     content.append(&notebook);
     content.append(&apply_cmd);
     // content.append(&debug);
@@ -161,12 +159,18 @@ pub fn build_ui(app: &Application) {
         .label("Display options")
         .tooltip_markup("Customize the display options")
         .build();
-    let theme_label = Label::builder().label("System theme").tooltip_markup("Change the look and feel of your os\n⚠This will change entirely how the gui will behave").build();
+    let theme_label = Label::builder()
+        .label("System theme")
+        .tooltip_markup(
+            "Change the look and feel of your os\n⚠This will change entirely how the gui will behave"
+        )
+        .build();
 
     notebook.append_page(&create_main_tab(), Some(&main_label));
     notebook.append_page(&create_display_tab(), Some(&display_label));
     notebook.append_page(&system_theme(), Some(&theme_label));
 
+    // debug button
     enter.connect_clicked(clone!(@weak notebook => move |_|
         for page_num in 0..notebook.n_pages() {
         if let Some(page) = notebook.nth_page(Some(page_num)) {

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # list of dependancies to install
-dependancies=("xfce4" "lightdm" "git")
+dependancies=("curl" "git")
 
 
 # update repositories
 sudo apt update
 
 # install dependancies
-for package in ${dependancies[@]}
+for package in "${dependancies[@]}"
     do
 
 # checks if every package is installed
@@ -32,7 +32,7 @@ for package in ${dependancies[@]}
 done
 
 # clones the rust project from github
-if [ -z $(find xf-tweaks)  ]
+if [[ -z "$(find xf-tweaks)"  ]]
     then
     echo "cloning code from github in 2 sec..."
     # leaves time to cancel for debugging
@@ -41,4 +41,4 @@ if [ -z $(find xf-tweaks)  ]
     git clone https://github.com/alexou2/xf-tweaks.git
 
 fi
-echo -e "\n\n Please reboot the computer in order to apply changes
+echo -e "\n\n Please reboot the computer in order to apply changes"
