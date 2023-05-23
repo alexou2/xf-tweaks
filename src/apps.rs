@@ -232,6 +232,13 @@ pub const JSON_DATA: &str = r#"
             "description": "the default login screen of kde",
             "needs_sudo": true,
             "type":"debug"
+        },
+        {
+            "name": "run sudo",
+            "command": "sudo nautilus .",
+            "description": "the default login screen of kde",
+            "needs_sudo": true,
+            "type":"debug"
         }
     ]
 }

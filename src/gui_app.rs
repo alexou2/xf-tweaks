@@ -1,7 +1,6 @@
 use crate::apps;
 use crate::json;
 use crate::utils;
-use crate::utils::type_of;
 use gio::prelude::*;
 use glib::clone;
 use gtk::glib;
@@ -20,32 +19,19 @@ pub fn build_ui(app: &Application) {
         .application(app)
         .build();
 
-    let notebook = Notebook::new();
+    let notebook = Notebook::new(); //where the tabs are
 
-    // creates a useless button
-    // let button = Button::builder()
-    let button = CheckButton::builder()
-        .label("click me ")
-        .margin_top(12)
-        .margin_bottom(12)
-        .margin_end(12)
-        .margin_start(12)
-        .focus_on_click(true)
+    let submit_button = Button::builder()
+        .label("Finished")
+        .tooltip_markup("Apply selection")
         .build();
-    // button.connect_clicked(move |_| println!("opopop")); // button action
 
-    // creates a submit button
-    // let enter = Button::builder().label("debug").build();
-
-    let submit_button = Button::builder().label("finished").build();
-
-    // cancel buttons
-    let cancel = Button::builder().label("Cancel").build();
+    // cancel button
+    let cancel = Button::builder().label("Cancel").tooltip_markup("Close window").build();
     cancel.connect_clicked(clone!(@weak window =>move|_| window.close()));
 
     // the list of what is in the app
     let content = Box::new(Orientation::Horizontal, 4);
-    // let app_list = Box::new(Orientation::Vertical, 2);
     let apply_cmd = Box::new(Orientation::Vertical, 2);
 
     // apply_cmd.append(&enter);
@@ -69,28 +55,22 @@ pub fn build_ui(app: &Application) {
                                 let run = json::find_element(&check.label().unwrap(), "applications");
                                 // println!("{:?}", run)
                                 utils::split_command(run);
-                                // let command = json::find_element(&check_button.label().unwrap().replace('"', "").to_string());
-                                // utils::run_command(command.as_str());
-                                // run_cmd(command);
                                 println!("true")
                             }
                         }
                     }
                 }
-                // type_of(&box_container);
-            }
-
-                // }
             }
         }
-        }
-    )); // button action
+    }
+})); // button action
 
     // content of the page
     content.append(&notebook);
     content.append(&apply_cmd);
     // content.append(&debug);
 
+    // the labels of the tabs
     let main_label = Label::builder()
         .label("Applications")
         .tooltip_markup("Install any apps")
@@ -104,18 +84,17 @@ pub fn build_ui(app: &Application) {
         .tooltip_markup("Change the look and feel of your os\n⚠This will change entirely how the gui will behave")
         .build();
     let debug_label = Label::builder()
-    .tooltip_markup("Run commands that wont install")
-    .label("Debug options")
-    .build();
+        .tooltip_markup("Run commands that wont install")
+        .label("Debug options")
+        .build();
 
-
-    // adding the tbs to the window
+    // adding the tabs to the window
     notebook.append_page(&create_main_tab(), Some(&main_label));
     notebook.append_page(&create_display_tab(), Some(&display_label));
     notebook.append_page(&system_theme(), Some(&theme_label));
     notebook.append_page(&debug_tab(), Some(&debug_label));
 
-    window.set_child(Some(&content)); //uses the buttons/text/ etc... from content
+    window.set_child(Some(&content));
 
     window.show();
 }
@@ -150,7 +129,7 @@ fn create_main_tab() -> Box {
         .build();
 
     let language_list = Label::builder()
-        .label("Programming language")
+        .label("Programming languages")
         .margin_top(12)
         .margin_bottom(12)
         .margin_end(12)
@@ -162,17 +141,11 @@ fn create_main_tab() -> Box {
     let content = Box::new(Orientation::Horizontal, 4);
     let app_list = Box::new(Orientation::Vertical, 2);
     let cli_tools = Box::new(Orientation::Vertical, 2);
-    // let debug = Box::new(Orientation::Vertical, 2);
-    // let apply_cmd = Box::new(Orientation::Vertical, 2);
     let prog_language = Box::new(Orientation::Vertical, 2);
 
     // adds the buttons to the window
-    // debug.append(&debug_menu);
     app_list.append(&app_label);
-    // debug.append(&button);
-    // debug.append(&enter);
     cli_tools.append(&cli_list);
-    // apply_cmd.append(&submit_button);
     prog_language.append(&language_list);
 
     // loop to create a button for every possible command
