@@ -94,6 +94,18 @@ pub const JSON_DATA: &str = r#"
             "type":"application"
         },
         {
+            "name": "an anime game launcher",
+            "command": [
+                "sudo apt install flatpak",
+                "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo",
+                "flatpak remote-add --if-not-exists --system launcher.moe https://gol.launcher.moe/gol.launcher.moe.flatpakrepo",
+                "flatpak install launcher.moe moe.launcher.an-anime-game-launcher"
+            ],
+            "description": "you know the game",
+            "needs_sudo": true,
+            "type":"application"
+        },
+        {
             "name": "evince",
             "command": "sudo apt install evince",
             "description": "a document viewer that supports many formats",
