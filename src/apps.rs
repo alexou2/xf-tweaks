@@ -106,6 +106,13 @@ pub const JSON_DATA: &str = r#"
             "type":"application"
         },
         {
+            "name": "fix an anime game launcher bug",
+            "command": "open https://github.com/an-anime-team/an-anime-game-launcher/issues/172",
+            "description": "fixes error code 9907 when launching the game",
+            "needs_sudo": false,
+            "type":"application"
+        },
+        {
             "name": "evince",
             "command": "sudo apt install evince",
             "description": "a document viewer that supports many formats",
