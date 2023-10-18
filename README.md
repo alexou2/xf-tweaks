@@ -1,3 +1,4 @@
+DEPRICATED
 A gtk4-based rust application to customize the xfce desktop environment. 
 
 installation:
